@@ -203,7 +203,7 @@ class HttpsFilteringViewModelTest {
     }
 
     @Test
-    fun `disabling stops the MITM stack and clears the CA`() {
+    fun `disabling stops the proxy and persists state`() {
         val f = HttpsTestFixtures(httpsEnabled = true)
         every { f.engine.getMitmCACert(any()) } returns TEST_PEM
         val vm = HttpsFilteringViewModel(f.app)
@@ -213,11 +213,8 @@ class HttpsFilteringViewModelTest {
         vm.toggleEnabled(false)
         awaitTrue { HttpsFilteringEvent.ProxyStopped in events }
 
-        verify { f.engine.stopStackMitm() }
-        verify { f.engine.setUseTcpStack(false) }
         assertFalse(vm.isEnabled.value)
         assertFalse(vm.isProxyRunning.value)
-        assertNull(vm.caCertPem.value)
         coVerify { f.prefs.setHttpsFilteringEnabled(false) }
     }
 

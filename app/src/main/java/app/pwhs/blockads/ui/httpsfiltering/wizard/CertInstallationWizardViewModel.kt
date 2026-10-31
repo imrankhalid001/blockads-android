@@ -14,7 +14,6 @@ import app.pwhs.blockads.service.ServiceController
 import app.pwhs.blockads.ui.httpsfiltering.CertStatus
 import app.pwhs.blockads.utils.CaCertHelper
 import app.pwhs.blockads.utils.DeviceManager
-import app.pwhs.blockads.utils.SystemCertificateInstaller
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,8 +39,7 @@ class CertInstallationWizardViewModel(
     private val _uiState = MutableStateFlow(
         CertInstallationWizardUiState(
             installSteps = DeviceManager.getInstallSteps(application),
-            brandName = DeviceManager.currentBrandName,
-            isRootAvailable = SystemCertificateInstaller.isRootAvailable()
+            brandName = DeviceManager.currentBrandName
         )
     )
     val uiState: StateFlow<CertInstallationWizardUiState> = _uiState.asStateFlow()
@@ -61,8 +59,6 @@ class CertInstallationWizardViewModel(
                 _uiState.update { it.copy(currentStep = intent.step) }
             }
             CertInstallationWizardUiIntent.ExportCert -> exportCert()
-            CertInstallationWizardUiIntent.InstallRootFast -> installRootFast()
-            CertInstallationWizardUiIntent.InstallRootModule -> installRootModule()
             CertInstallationWizardUiIntent.OpenSecuritySettings -> openSecuritySettings()
             CertInstallationWizardUiIntent.VerifyCert -> verifyCert()
             CertInstallationWizardUiIntent.FinishWizard -> finishWizard()
@@ -89,13 +85,22 @@ class CertInstallationWizardViewModel(
         }
     }
 
+    private suspend fun ensureCaPem(): String = withContext(Dispatchers.IO) {
+        val certDir = getApplication<Application>().filesDir.absolutePath
+        val caFile = File(certDir, "ca.crt")
+        var caPem = if (caFile.exists()) caFile.readText().takeIf { it.isNotBlank() } else null
+        if (caPem.isNullOrEmpty()) {
+            caPem = engine.getMitmCACert(certDir).takeIf { it.isNotBlank() }
+        }
+        if (caPem.isNullOrEmpty()) {
+            caPem = engine.startStackMitm(certDir)
+        }
+        caPem ?: ""
+    }
+
     private fun initCertAndCheckStatus() {
         viewModelScope.launch(Dispatchers.IO) {
-            val certDir = getApplication<Application>().filesDir.absolutePath
-            var caPem = engine.getMitmCACert(certDir)
-            if (caPem.isNullOrEmpty()) {
-                caPem = engine.startStackMitm(certDir)
-            }
+            val caPem = ensureCaPem()
             val installed = CaCertHelper.checkCertInTrustStore(caPem)
             _uiState.update {
                 it.copy(
@@ -107,12 +112,8 @@ class CertInstallationWizardViewModel(
 
     private fun exportCert() {
         viewModelScope.launch {
-            val certDir = getApplication<Application>().filesDir.absolutePath
-            var pem = engine.getMitmCACert(certDir)
-            if (pem.isNullOrEmpty()) {
-                pem = withContext(Dispatchers.IO) { engine.startStackMitm(certDir) }
-            }
-            if (pem.isNullOrEmpty()) {
+            val pem = ensureCaPem()
+            if (pem.isEmpty()) {
                 _uiEffect.emit(CertInstallationWizardUiEffect.ShowSnackbar("Error: could not generate CA certificate"))
                 return@launch
             }
@@ -157,52 +158,6 @@ class CertInstallationWizardViewModel(
         }
     }
 
-    private fun installRootFast() {
-        viewModelScope.launch {
-            _uiState.update { it.copy(isExecutingRoot = true) }
-            val certDir = getApplication<Application>().filesDir.absolutePath
-            var pem = engine.getMitmCACert(certDir)
-            if (pem.isNullOrEmpty()) {
-                pem = withContext(Dispatchers.IO) { engine.startStackMitm(certDir) }
-            }
-            val result = withContext(Dispatchers.IO) {
-                SystemCertificateInstaller.installToUserStoreViaRoot(pem ?: "")
-            }
-            _uiState.update { it.copy(isExecutingRoot = false) }
-
-            if (result.isSuccess) {
-                _uiState.update { it.copy(certStatus = CertStatus.INSTALLED, isCertExported = true) }
-                _uiEffect.emit(CertInstallationWizardUiEffect.ShowSnackbar(getApplication<Application>().getString(app.pwhs.blockads.R.string.cert_snackbar_user_store_success)))
-                verifyCert()
-            } else {
-                _uiEffect.emit(CertInstallationWizardUiEffect.ShowSnackbar("Root install failed: ${result.exceptionOrNull()?.message}"))
-            }
-        }
-    }
-
-    private fun installRootModule() {
-        viewModelScope.launch {
-            _uiState.update { it.copy(isExecutingRoot = true) }
-            val certDir = getApplication<Application>().filesDir.absolutePath
-            var pem = engine.getMitmCACert(certDir)
-            if (pem.isNullOrEmpty()) {
-                pem = withContext(Dispatchers.IO) { engine.startStackMitm(certDir) }
-            }
-            val result = withContext(Dispatchers.IO) {
-                SystemCertificateInstaller.installToSystemStore(pem ?: "")
-            }
-            _uiState.update { it.copy(isExecutingRoot = false) }
-
-            if (result.isSuccess) {
-                _uiState.update { it.copy(certStatus = CertStatus.INSTALLED, isCertExported = true) }
-                _uiEffect.emit(CertInstallationWizardUiEffect.ShowSnackbar(getApplication<Application>().getString(app.pwhs.blockads.R.string.cert_snackbar_magisk_module_success)))
-                verifyCert()
-            } else {
-                _uiEffect.emit(CertInstallationWizardUiEffect.ShowSnackbar("Module install failed: ${result.exceptionOrNull()?.message}"))
-            }
-        }
-    }
-
     private fun openSecuritySettings() {
         val intent = CaCertHelper.createSecuritySettingsIntent()
         viewModelScope.launch {
@@ -213,8 +168,7 @@ class CertInstallationWizardViewModel(
     fun verifyCert() {
         viewModelScope.launch {
             _uiState.update { it.copy(certStatus = CertStatus.CHECKING) }
-            val certDir = getApplication<Application>().filesDir.absolutePath
-            val caPem = engine.getMitmCACert(certDir)
+            val caPem = ensureCaPem()
             val installed = withContext(Dispatchers.IO) { CaCertHelper.checkCertInTrustStore(caPem) }
             _uiState.update {
                 it.copy(certStatus = if (installed) CertStatus.INSTALLED else CertStatus.NOT_INSTALLED)

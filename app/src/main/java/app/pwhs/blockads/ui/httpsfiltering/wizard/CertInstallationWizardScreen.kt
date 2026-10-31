@@ -205,11 +205,7 @@ fun CertInstallationWizardScreen(
                         WizardInstallCaPage(
                             brandName = uiState.brandName,
                             installSteps = uiState.installSteps,
-                            isRootAvailable = uiState.isRootAvailable,
-                            isExecutingRoot = uiState.isExecutingRoot,
-                            onOpenSettings = { viewModel.processIntent(CertInstallationWizardUiIntent.OpenSecuritySettings) },
-                            onInstallRootFast = { viewModel.processIntent(CertInstallationWizardUiIntent.InstallRootFast) },
-                            onInstallRootModule = { viewModel.processIntent(CertInstallationWizardUiIntent.InstallRootModule) }
+                            onOpenSettings = { viewModel.processIntent(CertInstallationWizardUiIntent.OpenSecuritySettings) }
                         )
                     }
                     WizardStep.VERIFY -> {

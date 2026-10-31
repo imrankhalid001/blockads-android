@@ -90,7 +90,7 @@
     <string name="https_filtering_explain_body">Lọc HTTPS chặn lưu lượng truy cập web từ các trình duyệt bạn đã chọn và áp dụng CSS cosmetic để ẩn banner quảng cáo, lớp phủ và các phần tử quảng cáo trực quan trên trang web.\n\nĐể làm điều này, một chứng chỉ Root CA cục bộ phải được cài đặt trên thiết bị của bạn. Chứng chỉ này được tạo cục bộ và không bao giờ rời khỏi điện thoại của bạn. Các ứng dụng ngân hàng, Google và các dịch vụ nhạy cảm khác sẽ không bao giờ bị chặn.</string>
     <string name="https_filtering_ca_title">Chứng chỉ Root CA</string>
     <string name="https_filtering_ca_desc">Làm theo các bước sau để thiết lập bộ lọc quảng cáo HTTPS:</string>
-    <string name="https_filtering_export_ca">Bước 1: Lưu chứng chỉ vào thư mục Tải xuống</string>
+    <string name="https_filtering_export_ca">Lưu vào thư mục Tải xuống</string>
     <string name="https_filtering_cert_saved">Đã lưu chứng chỉ vào thư mục Tải xuống!</string>
     <string name="https_filtering_install_steps">Bước 2: Cài đặt chứng chỉ theo cách thủ công:\n\n1. Đi tới Cài đặt → Bảo mật → Mã hóa &amp; thông tin xác thực\n2. Chạm vào \&quot;Cài đặt chứng chỉ\&quot; → \&quot;Chứng chỉ CA\&quot;\n3. Chọn \&quot;BlockAds-RootCA.crt\&quot; từ Tải xuống\n4. Xác nhận cài đặt</string>
     <string name="https_filtering_open_settings">Mở cài đặt bảo mật</string>
@@ -179,8 +179,8 @@
     <string name="https_wizard_privacy_browser_title">Chỉ lọc các trình duyệt được cấp phép</string>
     <string name="https_wizard_privacy_browser_desc">Bạn có toàn quyền chọn hoặc bỏ chọn trình duyệt nào được áp dụng bộ lọc HTTPS.</string>
     <string name="https_wizard_cert_file_type">Chứng chỉ X.509 CA (.crt)</string>
-    <string name="https_wizard_cert_status_exported">Đã lưu vào thư mục Tải về</string>
-    <string name="https_wizard_cert_status_not_exported">Sẵn sàng tải về</string>
+    <string name="https_wizard_cert_status_exported">Đã lưu</string>
+    <string name="https_wizard_cert_status_not_exported">Sẵn sàng</string>
     <string name="https_wizard_cert_save_note">Tệp sẽ được lưu vào thư mục Tải về (Downloads) của máy. Ở bước tiếp theo, bạn sẽ cài đặt tệp này vào hệ thống.</string>
     <string name="https_wizard_device_brand_format">Thiết bị nhận diện: %1$s</string>
     <string name="https_wizard_device_brand_generic">Thiết bị Android của bạn</string>

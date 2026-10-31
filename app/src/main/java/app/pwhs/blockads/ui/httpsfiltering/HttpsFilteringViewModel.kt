@@ -15,7 +15,6 @@ import app.pwhs.blockads.data.datastore.AppPreferences
 import app.pwhs.blockads.service.AdBlockVpnService
 import app.pwhs.blockads.service.ServiceController
 import app.pwhs.blockads.utils.CaCertHelper
-import app.pwhs.blockads.utils.SystemCertificateInstaller
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -259,51 +258,6 @@ class HttpsFilteringViewModel(
     }
 
     /**
-     * Installs the CA certificate directly to the Android User CA store on rooted devices.
-     * Takes effect immediately without needing a reboot.
-     */
-    fun installToUserStoreViaRoot() {
-        viewModelScope.launch {
-            val pem = ensureCaCertPem() ?: run {
-                _events.emit(HttpsFilteringEvent.Error("CA certificate is not ready."))
-                return@launch
-            }
-            val result = withContext(Dispatchers.IO) {
-                SystemCertificateInstaller.installToUserStoreViaRoot(pem)
-            }
-            if (result.isSuccess) {
-                _certStatus.value = CertStatus.INSTALLED
-                _certExported.value = true
-                _events.emit(HttpsFilteringEvent.CaCertSavedToDownloads("User Store (${result.getOrNull()}.0)"))
-            } else {
-                _events.emit(HttpsFilteringEvent.Error("Root install failed: ${result.exceptionOrNull()?.message}"))
-            }
-        }
-    }
-
-    /**
-     * Installs the CA certificate as a Magisk module on rooted devices.
-     */
-    fun installToSystemStore() {
-        viewModelScope.launch {
-            val pem = ensureCaCertPem() ?: run {
-                _events.emit(HttpsFilteringEvent.Error("CA certificate is not ready."))
-                return@launch
-            }
-            val result = withContext(Dispatchers.IO) {
-                SystemCertificateInstaller.installToSystemStore(pem)
-            }
-            if (result.isSuccess) {
-                _certStatus.value = CertStatus.INSTALLED
-                _certExported.value = true
-                _events.emit(HttpsFilteringEvent.CaCertSavedToDownloads("Magisk Module (${result.getOrNull()}.0)"))
-            } else {
-                _events.emit(HttpsFilteringEvent.Error("Root install failed: ${result.exceptionOrNull()?.message}"))
-            }
-        }
-    }
-
-    /**
      * Open Android Security Settings where user can install the certificate.
      */
     fun createSecuritySettingsIntent(): Intent = CaCertHelper.createSecuritySettingsIntent()
@@ -338,21 +292,10 @@ class HttpsFilteringViewModel(
     private fun startProxy() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val certDir = getApplication<Application>().filesDir.absolutePath
-                engine.setUseTcpStack(true)
-                val caPem = engine.startStackMitm(certDir)
-                if (caPem.isNotEmpty()) {
+                val caPem = ensureCaCertPem()
+                if (!caPem.isNullOrEmpty()) {
                     _caCertPem.value = caPem
                     _isProxyRunning.value = true
-                    syncUidsToGoEngine(_browsers.value)
-                    try {
-                        val passthrough = getApplication<Application>().assets
-                            .open("https_passthrough.txt")
-                            .bufferedReader().use { it.readText() }
-                        engine.setExtraPassthroughSuffixes(passthrough)
-                    } catch (e: Exception) {
-                        Timber.w(e, "Failed to load https_passthrough.txt asset")
-                    }
                     _events.emit(HttpsFilteringEvent.ProxyStarted)
                     Timber.d("HTTPS filtering started (stack MITM)")
                 } else {
@@ -368,24 +311,12 @@ class HttpsFilteringViewModel(
     private fun stopProxy() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                engine.stopStackMitm()
-                engine.setUseTcpStack(false)
                 _isProxyRunning.value = false
-                _caCertPem.value = null
                 _events.emit(HttpsFilteringEvent.ProxyStopped)
                 Timber.d("HTTPS filtering stopped")
             } catch (e: Exception) {
                 Timber.e(e, "Error stopping HTTPS filtering")
             }
-        }
-    }
-
-    private fun syncUidsToGoEngine(browsers: List<BrowserInfo>) {
-        val selectedUids = browsers
-            .filter { it.isSelected }
-            .joinToString(",") { it.uid.toString() }
-        if (selectedUids.isNotEmpty()) {
-            engine.setMitmAllowedUIDs(selectedUids)
         }
     }
 

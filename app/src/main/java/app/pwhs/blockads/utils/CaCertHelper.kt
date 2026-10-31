@@ -13,8 +13,7 @@ import java.security.cert.X509Certificate
 object CaCertHelper {
 
     /**
-     * Checks if the Root CA represented by [caPem] is installed in the Android
-     * trust store (user or system) or present as a Magisk/KernelSU module.
+     * Checks if the Root CA represented by [caPem] is installed in the Android trust store.
      */
     fun checkCertInTrustStore(caPem: String?): Boolean {
         if (caPem.isNullOrEmpty()) return false
@@ -32,11 +31,6 @@ object CaCertHelper {
                     Timber.d("Cert verification: found matching CA in trust store (alias=$alias)")
                     return true
                 }
-            }
-
-            if (SystemCertificateInstaller.isModuleInstalled(caPem)) {
-                Timber.d("Cert verification: found matching CA in Magisk module")
-                return true
             }
 
             false

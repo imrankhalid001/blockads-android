@@ -180,8 +180,8 @@
     <string name="https_wizard_privacy_browser_title">Controlled Browser Scope</string>
     <string name="https_wizard_privacy_browser_desc">You have full control over which browsers use HTTPS filtering, and can disable it anytime.</string>
     <string name="https_wizard_cert_file_type">X.509 CA Certificate (.crt)</string>
-    <string name="https_wizard_cert_status_exported">Saved to Downloads</string>
-    <string name="https_wizard_cert_status_not_exported">Ready to save</string>
+    <string name="https_wizard_cert_status_exported">Saved</string>
+    <string name="https_wizard_cert_status_not_exported">Ready</string>
     <string name="https_wizard_cert_save_note">The certificate file will be saved in your device\'s Downloads folder. You will install it in the next step.</string>
     <string name="https_wizard_device_brand_format">Target Device: %1$s</string>
     <string name="https_wizard_device_brand_generic">Your Android Device</string>

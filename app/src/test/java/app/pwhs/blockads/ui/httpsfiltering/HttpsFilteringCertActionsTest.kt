@@ -4,7 +4,6 @@ import android.os.Build
 import app.pwhs.blockads.testutil.FakeMediaStoreProvider
 import app.pwhs.blockads.testutil.ShadowGoSeq
 import app.pwhs.blockads.testutil.awaitTrue
-import app.pwhs.blockads.utils.SystemCertificateInstaller
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
@@ -88,73 +87,6 @@ class HttpsFilteringCertActionsTest {
 
         val event = events.single() as HttpsFilteringEvent.CaCertExportedLegacy
         assertEquals(TEST_PEM, event.certFile.readText())
-    }
-
-    @Test
-    fun `root user-store install marks the cert installed`() {
-        val f = HttpsTestFixtures()
-        every { f.engine.getMitmCACert(any()) } returns TEST_PEM
-        mockkObject(SystemCertificateInstaller)
-        every { SystemCertificateInstaller.installToUserStoreViaRoot(TEST_PEM) } returns Result.success("abcd1234")
-        val (vm, events) = newVm(f)
-
-        vm.installToUserStoreViaRoot()
-        awaitTrue { events.isNotEmpty() }
-
-        assertEquals(HttpsFilteringEvent.CaCertSavedToDownloads("User Store (abcd1234.0)"), events.single())
-        assertEquals(CertStatus.INSTALLED, vm.certStatus.value)
-        assertTrue(vm.certExported.value)
-    }
-
-    @Test
-    fun `root user-store install failure is surfaced and status stays unknown`() {
-        val f = HttpsTestFixtures()
-        every { f.engine.getMitmCACert(any()) } returns TEST_PEM
-        mockkObject(SystemCertificateInstaller)
-        every { SystemCertificateInstaller.installToUserStoreViaRoot(any()) } returns
-            Result.failure(IllegalStateException("su denied"))
-        val (vm, events) = newVm(f)
-
-        vm.installToUserStoreViaRoot()
-        awaitTrue { events.isNotEmpty() }
-
-        assertEquals(HttpsFilteringEvent.Error("Root install failed: su denied"), events.single())
-        assertEquals(CertStatus.UNKNOWN, vm.certStatus.value)
-    }
-
-    @Test
-    fun `root installs refuse to run without a CA`() {
-        val f = HttpsTestFixtures()
-        mockkObject(SystemCertificateInstaller)
-        val (vm, events) = newVm(f)
-
-        vm.installToUserStoreViaRoot()
-        vm.installToSystemStore()
-        awaitTrue { events.size == 2 }
-
-        assertTrue(events.all { it == HttpsFilteringEvent.Error("CA certificate is not ready.") })
-        verify(exactly = 0) { SystemCertificateInstaller.installToUserStoreViaRoot(any()) }
-        verify(exactly = 0) { SystemCertificateInstaller.installToSystemStore(any()) }
-    }
-
-    @Test
-    fun `magisk module install success and failure`() {
-        val f = HttpsTestFixtures()
-        every { f.engine.startStackMitm(any()) } returns TEST_PEM
-        mockkObject(SystemCertificateInstaller)
-        every { SystemCertificateInstaller.installToSystemStore(TEST_PEM) } returnsMany listOf(
-            Result.success("abcd1234"),
-            Result.failure(IllegalStateException("no magisk")),
-        )
-        val (vm, events) = newVm(f)
-
-        vm.installToSystemStore()
-        awaitTrue { events.size == 1 }
-        vm.installToSystemStore()
-        awaitTrue { events.size == 2 }
-
-        assertEquals(HttpsFilteringEvent.CaCertSavedToDownloads("Magisk Module (abcd1234.0)"), events[0])
-        assertEquals(HttpsFilteringEvent.Error("Root install failed: no magisk"), events[1])
     }
 
     @Test

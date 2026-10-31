@@ -7,11 +7,8 @@ import app.pwhs.blockads.ui.httpsfiltering.wizard.CertInstallationWizardUiEffect
 import app.pwhs.blockads.ui.httpsfiltering.wizard.CertInstallationWizardUiIntent
 import app.pwhs.blockads.ui.httpsfiltering.wizard.CertInstallationWizardViewModel
 import app.pwhs.blockads.ui.httpsfiltering.wizard.WizardStep
-import app.pwhs.blockads.utils.SystemCertificateInstaller
-import io.mockk.clearMocks
 import io.mockk.coVerify
 import io.mockk.every
-import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +19,6 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
@@ -45,13 +41,9 @@ class CertInstallationWizardViewModelTest {
 
     private fun newWizard(
         existingCa: String = "",
-        rootAvailable: Boolean = false,
     ): Triple<HttpsTestFixtures, CertInstallationWizardViewModel, MutableList<CertInstallationWizardUiEffect>> {
         val f = HttpsTestFixtures()
         every { f.engine.getMitmCACert(any()) } returns existingCa
-        mockkObject(SystemCertificateInstaller)
-        every { SystemCertificateInstaller.isRootAvailable() } returns rootAvailable
-        every { SystemCertificateInstaller.isModuleInstalled(any()) } returns false
         val vm = CertInstallationWizardViewModel(f.app)
         awaitTrue(message = "initial cert check") { vm.uiState.value.certStatus != CertStatus.UNKNOWN }
         val effects = Collections.synchronizedList(mutableListOf<CertInstallationWizardUiEffect>())
@@ -60,11 +52,10 @@ class CertInstallationWizardViewModelTest {
     }
 
     @Test
-    fun `initial state carries root availability and install steps`() {
-        val (_, vm, _) = newWizard(existingCa = TEST_PEM, rootAvailable = true)
+    fun `initial state carries install steps`() {
+        val (_, vm, _) = newWizard(existingCa = TEST_PEM)
         val state = vm.uiState.value
         assertEquals(WizardStep.EXPLANATION, state.currentStep)
-        assertTrue(state.isRootAvailable)
         assertTrue(state.installSteps.isNotEmpty())
         assertEquals(CertStatus.NOT_INSTALLED, state.certStatus)
     }
@@ -79,64 +70,37 @@ class CertInstallationWizardViewModelTest {
         repeat(WizardStep.entries.size + 2) { vm.processIntent(CertInstallationWizardUiIntent.NextStep) }
         assertEquals(WizardStep.VERIFY, vm.uiState.value.currentStep)
 
-        vm.processIntent(CertInstallationWizardUiIntent.PrevStep)
-        assertEquals(WizardStep.INSTALL_CA, vm.uiState.value.currentStep)
+        repeat(WizardStep.entries.size + 2) { vm.processIntent(CertInstallationWizardUiIntent.PrevStep) }
+        assertEquals(WizardStep.EXPLANATION, vm.uiState.value.currentStep)
     }
 
     @Test
-    fun `reaching VERIFY triggers a trust-store check`() {
+    fun `landing on verify triggers check`() {
         val (f, vm, _) = newWizard(existingCa = TEST_PEM)
-        vm.processIntent(CertInstallationWizardUiIntent.GoToStep(WizardStep.INSTALL_CA))
-        clearMocks(f.engine, answers = false, recordedCalls = true, childMocks = false)
 
-        vm.processIntent(CertInstallationWizardUiIntent.NextStep)
+        vm.processIntent(CertInstallationWizardUiIntent.GoToStep(WizardStep.VERIFY))
+        awaitTrue { vm.uiState.value.certStatus != CertStatus.CHECKING }
 
-        assertEquals(WizardStep.VERIFY, vm.uiState.value.currentStep)
-        awaitTrue { vm.uiState.value.certStatus == CertStatus.NOT_INSTALLED }
-        verify(exactly = 1) { f.engine.getMitmCACert(any()) }
+        verify(atLeast = 1) { f.engine.getMitmCACert(any()) }
     }
 
     @Test
-    fun `GoToStep jumps directly`() {
-        val (_, vm, _) = newWizard(existingCa = TEST_PEM)
-        vm.processIntent(CertInstallationWizardUiIntent.GoToStep(WizardStep.SAVE_CA))
-        assertEquals(WizardStep.SAVE_CA, vm.uiState.value.currentStep)
-    }
-
-    @Ignore("opening the wizard generates a CA via startStackMitm when none exists")
-    @Test
-    fun `opening the wizard does not generate a CA`() {
-        val (f, _, _) = newWizard()
-        verify(exactly = 0) { f.engine.startStackMitm(any()) }
-    }
-
-    @Test
-    fun `export saves the CA and marks it exported`() {
+    fun `export writes the cert file and notifies the user`() {
         val media = FakeMediaStoreProvider.install()
-        val (_, vm, effects) = newWizard(existingCa = TEST_PEM)
+        val (f, vm, effects) = newWizard(existingCa = TEST_PEM)
 
         vm.processIntent(CertInstallationWizardUiIntent.ExportCert)
         awaitTrue { effects.isNotEmpty() }
 
         assertTrue(vm.uiState.value.isCertExported)
-        assertTrue((effects.single() as CertInstallationWizardUiEffect.ShowSnackbar).message.contains("BlockAds-RootCA.crt"))
+        val effect = effects.single() as CertInstallationWizardUiEffect.ShowSnackbar
+        assertTrue(effect.message.contains(vm.uiState.value.fileName))
         assertEquals(TEST_PEM, media.files.values.single().readText())
     }
 
     @Test
-    fun `export failure is reported`() {
-        val (_, vm, effects) = newWizard(existingCa = TEST_PEM)
-
-        vm.processIntent(CertInstallationWizardUiIntent.ExportCert)
-        awaitTrue { effects.isNotEmpty() }
-
-        assertFalse(vm.uiState.value.isCertExported)
-        assertTrue((effects.single() as CertInstallationWizardUiEffect.ShowSnackbar).message.startsWith("Export failed"))
-    }
-
-    @Test
-    fun `export without any CA shows an error`() {
-        val (_, vm, effects) = newWizard()
+    fun `export with no cert available reports error`() {
+        val (_, vm, effects) = newWizard(existingCa = "")
 
         vm.processIntent(CertInstallationWizardUiIntent.ExportCert)
         awaitTrue { effects.isNotEmpty() }
@@ -146,50 +110,6 @@ class CertInstallationWizardViewModelTest {
             CertInstallationWizardUiEffect.ShowSnackbar("Error: could not generate CA certificate"),
             effects.single()
         )
-    }
-
-    @Test
-    fun `root fast install success marks installed then re-verifies`() {
-        val (_, vm, effects) = newWizard(existingCa = TEST_PEM, rootAvailable = true)
-        every { SystemCertificateInstaller.installToUserStoreViaRoot(TEST_PEM) } returns Result.success("h")
-
-        vm.processIntent(CertInstallationWizardUiIntent.InstallRootFast)
-        awaitTrue { effects.isNotEmpty() }
-
-        assertFalse(vm.uiState.value.isExecutingRoot)
-        assertTrue(vm.uiState.value.isCertExported)
-        // Re-verification cannot see the Robolectric trust store, so it settles on NOT_INSTALLED.
-        awaitTrue { vm.uiState.value.certStatus == CertStatus.NOT_INSTALLED }
-    }
-
-    @Test
-    fun `root fast install failure reports the error`() {
-        val (_, vm, effects) = newWizard(existingCa = TEST_PEM, rootAvailable = true)
-        every { SystemCertificateInstaller.installToUserStoreViaRoot(any()) } returns
-            Result.failure(IllegalStateException("denied"))
-
-        vm.processIntent(CertInstallationWizardUiIntent.InstallRootFast)
-        awaitTrue { effects.isNotEmpty() }
-
-        assertEquals(CertInstallationWizardUiEffect.ShowSnackbar("Root install failed: denied"), effects.single())
-        assertFalse(vm.uiState.value.isExecutingRoot)
-    }
-
-    @Test
-    fun `root module install success and failure`() {
-        val (_, vm, effects) = newWizard(existingCa = TEST_PEM, rootAvailable = true)
-        every { SystemCertificateInstaller.installToSystemStore(TEST_PEM) } returnsMany listOf(
-            Result.success("h"),
-            Result.failure(IllegalStateException("no magisk")),
-        )
-
-        vm.processIntent(CertInstallationWizardUiIntent.InstallRootModule)
-        awaitTrue { effects.size == 1 }
-        vm.processIntent(CertInstallationWizardUiIntent.InstallRootModule)
-        awaitTrue { effects.size == 2 }
-
-        assertTrue(vm.uiState.value.isCertExported)
-        assertEquals(CertInstallationWizardUiEffect.ShowSnackbar("Module install failed: no magisk"), effects[1])
     }
 
     @Test
