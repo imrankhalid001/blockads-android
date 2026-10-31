@@ -241,6 +241,7 @@ class BrowserViewModel(
         _uiState.update { it.copy(isCheckingRuleUpdates = true) }
         viewModelScope.launch {
             val result = ruleRepository.checkAndUpdate()
+            ruleRepository.checkAndUpdateModules()
             _uiState.update { it.copy(isCheckingRuleUpdates = false) }
 
             result.fold(

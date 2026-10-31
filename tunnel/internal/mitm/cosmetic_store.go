@@ -24,7 +24,7 @@ func NewCosmeticStore() *CosmeticStore {
 
 // ParseAndLoad parses cosmetic CSS rules from raw filter list text.
 // Supports both standard AdBlock cosmetic rules (domain##selector, ##genericSelector)
-// and raw CSS blocks.
+// and raw CSS blocks (e.g. from adblock_cosmetic.css), even when combined in one input.
 func (s *CosmeticStore) ParseAndLoad(content string) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -40,11 +40,16 @@ func (s *CosmeticStore) ParseAndLoad(content string) {
 		if trimmed == "" || strings.HasPrefix(trimmed, "!") || strings.HasPrefix(trimmed, "[") {
 			continue
 		}
+		if strings.Contains(trimmed, "#@#") || strings.Contains(trimmed, "##+js") ||
+			strings.Contains(trimmed, "##^") || strings.Contains(trimmed, "#%#") ||
+			strings.Contains(trimmed, "#?#") || strings.Contains(trimmed, "#$#") {
+			continue
+		}
 
 		// AdBlock cosmetic rule: [domains]##selector
-		if idx := strings.Index(trimmed, "##"); idx >= 0 && !strings.Contains(trimmed, "##+js(") {
+		if idx := strings.Index(trimmed, "##"); idx >= 0 {
 			hasAdblockRules = true
-			domainPart := trimmed[:idx]
+			domainPart := strings.TrimSpace(trimmed[:idx])
 			selector := strings.TrimSpace(trimmed[idx+2:])
 			if selector == "" {
 				continue
@@ -63,16 +68,19 @@ func (s *CosmeticStore) ParseAndLoad(content string) {
 					}
 				}
 			}
+			continue
 		}
+
+		// Raw CSS line or comment (e.g. from adblock_cosmetic.css)
+		genericBuilder.WriteString(line)
+		genericBuilder.WriteString("\n")
 	}
 
-	// If no standard ## rules were found, treat the content as raw generic CSS
 	if !hasAdblockRules {
 		s.genericCSS = content
 	} else {
 		s.genericCSS = genericBuilder.String()
 	}
-
 	logf("CosmeticStore updated: generic rules=%d bytes, hosts=%d", len(s.genericCSS), len(s.byHost))
 }
 

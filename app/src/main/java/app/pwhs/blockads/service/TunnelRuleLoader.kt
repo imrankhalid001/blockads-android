@@ -12,10 +12,11 @@ import timber.log.Timber
 object TunnelRuleLoader {
 
     /**
-     * Loads cosmetic CSS from the active browser rule package (adblock_cosmetic.css / remote updates).
+     * Loads cosmetic CSS from the active browser rule package (adblock_cosmetic.css / remote updates)
+     * combined with compiled filter-list cosmetic rules (cosmetic_rules.css).
      */
-    fun loadCosmeticCss(context: Context): String {
-        return try {
+    fun loadCosmeticCss(context: Context, filterCosmeticCssPath: String? = null): String {
+        val baseCss = try {
             val storage = BrowserRuleStorage(context)
             val pkg = storage.getActivePackage()
             val raw = pkg.cosmeticCss?.trim()
@@ -30,6 +31,19 @@ object TunnelRuleLoader {
                 context.assets.open("browser/adblock_cosmetic.css").bufferedReader().use { it.readText() }
             }.getOrDefault("")
         }
+
+        val filterCss = if (!filterCosmeticCssPath.isNullOrBlank()) {
+            runCatching {
+                val f = java.io.File(filterCosmeticCssPath)
+                if (f.exists() && f.length() > 0) f.readText() else ""
+            }.getOrDefault("")
+        } else {
+            ""
+        }
+
+        return listOf(baseCss, filterCss)
+            .filter { it.isNotBlank() }
+            .joinToString("\n")
     }
 
     /**
@@ -118,11 +132,12 @@ object TunnelRuleLoader {
 
     /**
      * Loads modular rules from modules.json (cached OTA update or local asset),
-     * resolves asset script references, and passes the compiled JSON to the Go engine.
+     * merges any external filter module rules, resolves asset script references,
+     * and passes the compiled JSON to the Go engine.
      */
-    fun loadModules(context: Context, engine: tunnel.Engine) {
+    fun loadModules(context: Context, engine: tunnel.Engine, filterModulesPath: String? = null) {
         try {
-            val jsonStr = loadModulesJson(context)
+            val jsonStr = loadModulesJson(context, filterModulesPath)
             if (jsonStr.isNotBlank()) {
                 engine.setModulesConfig(jsonStr)
                 Timber.d("Modular rules loaded successfully into Go engine (%d bytes)", jsonStr.length)
@@ -133,9 +148,10 @@ object TunnelRuleLoader {
     }
 
     /**
-     * Reads modules.json, resolves any bundled script names, and returns the JSON string.
+     * Reads modules.json, resolves any bundled script names, merges external filter modules,
+     * and returns the JSON string.
      */
-    fun loadModulesJson(context: Context): String {
+    fun loadModulesJson(context: Context, filterModulesPath: String? = null): String {
         return try {
             val cachedFile = java.io.File(context.filesDir, "browser_rules/modules.json")
             val raw = if (cachedFile.exists() && cachedFile.length() > 0) {
@@ -150,6 +166,15 @@ object TunnelRuleLoader {
             val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true; isLenient = true }
             val pkg = json.decodeFromString<app.pwhs.blockads.data.models.ModulesPackage>(raw)
 
+            val extPkg = if (!filterModulesPath.isNullOrBlank()) {
+                runCatching {
+                    val f = java.io.File(filterModulesPath)
+                    if (f.exists() && f.length() > 0) {
+                        json.decodeFromString<app.pwhs.blockads.data.models.ModuleRulesPackage>(f.readText())
+                    } else null
+                }.getOrNull()
+            } else null
+
             val resolvedModules = pkg.modules.map { mod ->
                 val resolvedScripts = mod.scripts.map { scriptRef ->
                     if (scriptRef.endsWith(".js")) {
@@ -162,9 +187,20 @@ object TunnelRuleLoader {
                 }
                 mod.copy(scripts = resolvedScripts)
             }
+
+            val mergedGlobalPaths = if (extPkg != null && extPkg.globalBlockPaths.isNotEmpty()) {
+                (pkg.globalBlockPaths + extPkg.globalBlockPaths).distinct()
+            } else {
+                pkg.globalBlockPaths
+            }
+
             json.encodeToString(
                 app.pwhs.blockads.data.models.ModulesPackage.serializer(),
-                pkg.copy(modules = resolvedModules)
+                pkg.copy(
+                    modules = resolvedModules,
+                    globalBlockPaths = mergedGlobalPaths,
+                    domains = extPkg?.domains ?: pkg.domains
+                )
             )
         } catch (e: Exception) {
             Timber.w(e, "Failed to load and resolve modules.json")

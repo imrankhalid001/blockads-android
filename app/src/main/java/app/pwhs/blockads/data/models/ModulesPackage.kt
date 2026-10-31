@@ -12,7 +12,24 @@ data class ModulesPackage(
     val updatedAt: Long = 0,
     val modules: List<WebModule> = emptyList(),
     val domainIndex: Map<String, String> = emptyMap(),
-    val globalBlockPaths: List<String> = emptyList()
+    val globalBlockPaths: List<String> = emptyList(),
+    val domains: Map<String, DomainModuleRules> = emptyMap(),
+    @SerialName("global_block_paths") val globalPathsSnake: List<String> = emptyList()
+)
+
+@Serializable
+data class DomainModuleRules(
+    val css: List<String> = emptyList(),
+    @SerialName("block_paths") val blockPaths: List<String> = emptyList()
+)
+
+@Serializable
+data class ModuleRulesPackage(
+    val name: String = "",
+    @SerialName("rule_count") val ruleCount: Int = 0,
+    val domains: Map<String, DomainModuleRules> = emptyMap(),
+    @SerialName("global_css") val globalCss: List<String> = emptyList(),
+    @SerialName("global_block_paths") val globalBlockPaths: List<String> = emptyList()
 )
 
 @Serializable

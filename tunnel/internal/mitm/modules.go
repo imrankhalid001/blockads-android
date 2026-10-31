@@ -9,13 +9,21 @@ import (
 	"sync"
 )
 
-// ModulesConfig represents the top-level schema of modules.json.
+// DomainModuleRules stores domain-indexed rules extracted from external filter lists.
+type DomainModuleRules struct {
+	CSS        []string `json:"css,omitempty"`
+	BlockPaths []string `json:"block_paths,omitempty"`
+}
+
+// ModulesConfig represents the top-level schema of modules.json (and merged filter module rules).
 type ModulesConfig struct {
-	Version          int64             `json:"version"`
-	UpdatedAt        int64             `json:"updatedAt"`
-	Modules          []WebModule       `json:"modules"`
-	DomainIndex      map[string]string `json:"domainIndex"`
-	GlobalBlockPaths []string          `json:"globalBlockPaths"`
+	Version          int64                         `json:"version"`
+	UpdatedAt        int64                         `json:"updatedAt"`
+	Modules          []WebModule                   `json:"modules"`
+	DomainIndex      map[string]string             `json:"domainIndex"`
+	GlobalBlockPaths []string                      `json:"globalBlockPaths"`
+	Domains          map[string]*DomainModuleRules `json:"domains,omitempty"`
+	GlobalPathsSnake []string                      `json:"global_block_paths,omitempty"`
 }
 
 // WebModule represents a domain-specific ad blocking and feature rule set.
@@ -96,14 +104,66 @@ func (s *ModuleStore) UpdateFromJSON(raw string) error {
 		}
 	}
 
+	// Merge domain-specific rules from compiled external filter lists (.modules.json)
+	for rawDomain, extRules := range cfg.Domains {
+		if extRules == nil {
+			continue
+		}
+		d := strings.ToLower(strings.TrimSpace(rawDomain))
+		if d == "" || d == "*" {
+			continue
+		}
+		var formattedCSS []string
+		for _, c := range extRules.CSS {
+			c = strings.TrimSpace(c)
+			if c == "" {
+				continue
+			}
+			if !strings.Contains(c, "{") {
+				c = c + " { display: none !important; }"
+			}
+			formattedCSS = append(formattedCSS, c)
+		}
+
+		if existing, exists := domainIdx[d]; exists {
+			existing.BlockPaths = append(existing.BlockPaths, extRules.BlockPaths...)
+			existing.CosmeticCSS = append(existing.CosmeticCSS, formattedCSS...)
+		} else {
+			mod := &WebModule{
+				ID:          "ext_" + d,
+				Name:        d,
+				Enabled:     true,
+				Domains:     []string{d},
+				BlockPaths:  extRules.BlockPaths,
+				CosmeticCSS: formattedCSS,
+			}
+			modulesMap[mod.ID] = mod
+			domainIdx[d] = mod
+		}
+	}
+
+	globalPaths := append([]string(nil), cfg.GlobalBlockPaths...)
+	if len(cfg.GlobalPathsSnake) > 0 {
+		seen := make(map[string]struct{}, len(globalPaths))
+		for _, gp := range globalPaths {
+			seen[gp] = struct{}{}
+		}
+		for _, gp := range cfg.GlobalPathsSnake {
+			if _, exists := seen[gp]; !exists {
+				seen[gp] = struct{}{}
+				globalPaths = append(globalPaths, gp)
+			}
+		}
+	}
+
 	s.mu.Lock()
 	s.modules = modulesMap
 	s.domainIndex = domainIdx
-	s.globalPaths = cfg.GlobalBlockPaths
+	s.globalPaths = globalPaths
 	s.mu.Unlock()
 
 	logf("Modules updated: %d active modules, %d domain mappings, %d global block paths",
-		len(modulesMap), len(domainIdx), len(cfg.GlobalBlockPaths))
+		len(modulesMap), len(domainIdx), len(globalPaths))
 	return nil
 }
 

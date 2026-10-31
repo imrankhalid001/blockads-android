@@ -115,3 +115,50 @@ func TestModuleStore_MatchAndHandle(t *testing.T) {
 		t.Errorf("unexpected scripts: %v", scripts)
 	}
 }
+
+func TestModuleStore_ExternalDomainsAndCosmeticStoreMixed(t *testing.T) {
+	rawJSON := `{
+		"version": 1,
+		"modules": [],
+		"domainIndex": {},
+		"globalBlockPaths": ["/base/ad.js"],
+		"domains": {
+			"service.hotstar.com": {
+				"css": [".preroll-banner"],
+				"block_paths": ["/preroll?"]
+			}
+		},
+		"global_block_paths": ["/pagead.js"]
+	}`
+
+	store := &ModuleStore{
+		modules:     make(map[string]*WebModule),
+		domainIndex: make(map[string]*WebModule),
+	}
+	if err := store.UpdateFromJSON(rawJSON); err != nil {
+		t.Fatalf("UpdateFromJSON failed: %v", err)
+	}
+
+	req := &http.Request{Method: "GET", URL: &url.URL{Path: "/v1/preroll?id=1"}}
+	if resp, handled := store.MatchAndHandle(req, "service.hotstar.com"); !handled || resp.StatusCode != 204 {
+		t.Errorf("expected /preroll? on service.hotstar.com to be blocked")
+	}
+
+	reqGlobal := &http.Request{Method: "GET", URL: &url.URL{Path: "/static/pagead.js"}}
+	if resp, handled := store.MatchAndHandle(reqGlobal, "any.example.com"); !handled || resp.StatusCode != 204 {
+		t.Errorf("expected /pagead.js to be blocked globally")
+	}
+
+	css := store.GetCosmeticCSS("service.hotstar.com")
+	if len(css) != 1 || css[0] != ".preroll-banner { display: none !important; }" {
+		t.Errorf("unexpected normalized external CSS: %v", css)
+	}
+
+	// Verify CosmeticStore preserves both raw CSS and ## rules when combined
+	cs := NewCosmeticStore()
+	cs.ParseAndLoad(".raw-ad { display: none !important; }\n##.generic-ad\nvnexpress.net##.vn-banner")
+	gen := cs.GetGenericCSS()
+	if gen == "" || cs.GetCSSForHost("vnexpress.net") == "" {
+		t.Fatalf("expected both generic and host CSS")
+	}
+}

@@ -16,7 +16,8 @@ data class DownloadedFilterPaths(
     val bloomPath: String?,
     val triePath: String?,
     val cssPath: String?,
-    val scriptletPath: String?
+    val scriptletPath: String?,
+    val modulesPath: String? = null
 )
 
 class FilterDownloadManager(
@@ -40,6 +41,7 @@ class FilterDownloadManager(
             val trieFile = File(filterDir, "${filter.id}.trie")
             val cssFile = File(filterDir, "${filter.id}.css")
             val scriptletFile = File(filterDir, "${filter.id}.scriptlets")
+            val modulesFile = File(filterDir, "${filter.id}.modules.json")
 
             if (!forceUpdate && bloomFile.exists() && bloomFile.length() > 0 && trieFile.exists() && trieFile.length() > 0) {
                 Timber.d("Filter ${filter.id} already cached locally")
@@ -48,7 +50,8 @@ class FilterDownloadManager(
                         bloomPath = bloomFile.absolutePath,
                         triePath = trieFile.absolutePath,
                         cssPath = cssFile.takeIf { it.exists() && it.length() > 0 }?.absolutePath,
-                        scriptletPath = scriptletFile.takeIf { it.exists() && it.length() > 0 }?.absolutePath
+                        scriptletPath = scriptletFile.takeIf { it.exists() && it.length() > 0 }?.absolutePath,
+                        modulesPath = modulesFile.takeIf { it.exists() && it.length() > 0 }?.absolutePath
                     )
                 )
             }
@@ -61,14 +64,15 @@ class FilterDownloadManager(
             }
 
             if (zipUrl.isNotEmpty()) {
-                val zipSuccess = downloadAndExtractZip(zipUrl, bloomFile, trieFile, cssFile, scriptletFile)
+                val zipSuccess = downloadAndExtractZip(zipUrl, bloomFile, trieFile, cssFile, scriptletFile, modulesFile)
                 if (zipSuccess && bloomFile.exists() && trieFile.exists()) {
                     return@withContext Result.success(
                         DownloadedFilterPaths(
                             bloomPath = bloomFile.absolutePath,
                             triePath = trieFile.absolutePath,
                             cssPath = cssFile.takeIf { it.exists() && it.length() > 0 }?.absolutePath,
-                            scriptletPath = scriptletFile.takeIf { it.exists() && it.length() > 0 }?.absolutePath
+                            scriptletPath = scriptletFile.takeIf { it.exists() && it.length() > 0 }?.absolutePath,
+                            modulesPath = modulesFile.takeIf { it.exists() && it.length() > 0 }?.absolutePath
                         )
                     )
                 }
@@ -103,7 +107,8 @@ class FilterDownloadManager(
         bloomFile: File,
         trieFile: File,
         cssFile: File,
-        scriptletFile: File
+        scriptletFile: File,
+        modulesFile: File
     ): Boolean = withContext(Dispatchers.IO) {
         val tempZip = File(filterDir, "temp_${System.currentTimeMillis()}.zip")
         try {
@@ -132,6 +137,7 @@ class FilterDownloadManager(
                         entry.name.endsWith(".trie") -> trieFile
                         entry.name.endsWith(".css") -> cssFile
                         entry.name.endsWith(".scriptlets") -> scriptletFile
+                        entry.name.endsWith(".modules.json") -> modulesFile
                         else -> null
                     }
                     targetFile?.let { out ->
@@ -205,8 +211,8 @@ class FilterDownloadManager(
     }
 
     /**
-     * Reads a downloaded CSS file containing raw selectors, appends { display: none !important; }
-     * and returns a single valid CSS string ready for injection.
+     * Reads a downloaded CSS file containing cosmetic rules (`##selector`, `domain##selector`,
+     * or bare selectors) and returns normalized AdBlock cosmetic lines for the Go CosmeticStore.
      */
     fun getInjectableCss(file: File): String {
         if (!file.exists() || file.length() == 0L) {
@@ -216,16 +222,19 @@ class FilterDownloadManager(
         val cssBuilder = StringBuilder()
         try {
             file.forEachLine { line ->
-                var selector = line.trim()
-                if (selector.isEmpty() || selector.startsWith("!") || (selector.startsWith("#") && !selector.startsWith("##"))) {
+                val trimmed = line.trim()
+                if (trimmed.isEmpty() || trimmed.startsWith("!") || (trimmed.startsWith("#") && !trimmed.startsWith("##"))) {
                     return@forEachLine
                 }
-                if (selector.startsWith("##")) {
-                    selector = selector.removePrefix("##").trim()
+                if (trimmed.contains("#@#") || trimmed.contains("##+js") || trimmed.contains("##^")) {
+                    return@forEachLine
                 }
-                // Skip unhandled domain-specific rules (e.g. domain.com##...) or complex rules
-                if (selector.isNotEmpty() && !selector.contains("##")) {
-                    cssBuilder.append(selector).append(" { display: none !important; }\n")
+                if (trimmed.contains("##")) {
+                    cssBuilder.append(trimmed).append("\n")
+                } else if (trimmed.contains("{")) {
+                    cssBuilder.append(trimmed).append("\n")
+                } else {
+                    cssBuilder.append("##").append(trimmed).append("\n")
                 }
             }
         } catch (e: Exception) {

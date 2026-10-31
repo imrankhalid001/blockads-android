@@ -266,11 +266,11 @@ func newFullTunnelUdpHandler(engine *Engine, filter *MitmFilter, uidr UIDResolve
 		}
 
 		// Browser QUIC (UDP 443): drop to force TCP TLS for MITM — ONLY
-		// when HTTP/3 filtering is enabled from the UI. Default off →
-		// relay QUIC so pages load fully. DNS-level blocking still applies
-		// either way.
-		if engine.quicDrop.Load() && flow.serverPort == 443 {
-			if filter != nil && filter.HasAllowedUIDs() {
+		// when MITM is active and HTTP/3 filtering is enabled from the UI.
+		// Default off → relay QUIC so pages load fully. DNS-level blocking
+		// still applies either way.
+		if engine.quicDrop.Load() && filter != nil && flow.serverPort == 443 {
+			if filter.HasAllowedUIDs() {
 				uid := resolveFlowUID(uidr, ProtocolUDP, flow)
 				if uid == UIDUnknown || filter.IsUIDAllowed(uid) {
 					_ = conn.Close()

@@ -4,6 +4,7 @@ import androidx.work.ListenableWorker.Result
 import androidx.work.NetworkType
 import androidx.work.WorkInfo
 import app.pwhs.blockads.data.datastore.AppPreferences
+import app.pwhs.blockads.service.GoTunnelAdapter
 import app.pwhs.blockads.ui.browser.rules.BrowserRuleRepository
 import app.pwhs.blockads.ui.browser.rules.BrowserRuleUpdateWorker
 import io.mockk.coEvery
@@ -24,19 +25,24 @@ import java.util.concurrent.TimeUnit
 class SchedulersAndRuleWorkerTest {
 
     private val ruleRepo: BrowserRuleRepository = mockk()
+    private val goTunnelAdapter: GoTunnelAdapter = mockk(relaxed = true)
     private var autoUpdate = true
     private var frequency = AppPreferences.UPDATE_FREQUENCY_24H
     private val prefs: AppPreferences = mockk {
         every { autoUpdateEnabled } answers { flowOf(autoUpdate) }
         every { autoUpdateFrequency } answers { flowOf(frequency) }
     }
-    private val h = WorkerHarness(module { single { ruleRepo } })
+    private val h = WorkerHarness(module {
+        single { ruleRepo }
+        single { goTunnelAdapter }
+    })
 
     @After
     fun tearDown() = h.close()
 
     @Test
     fun `browser rule worker maps the repository result`() {
+        coEvery { ruleRepo.checkAndUpdateModules() } returns kotlin.Result.success(false)
         coEvery { ruleRepo.checkAndUpdate(null) } returns kotlin.Result.success(false)
         assertEquals(Result.success(), h.run<BrowserRuleUpdateWorker>())
         coEvery { ruleRepo.checkAndUpdate(null) } returns kotlin.Result.failure(IllegalStateException("x"))

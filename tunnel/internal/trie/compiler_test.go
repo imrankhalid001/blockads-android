@@ -190,3 +190,40 @@ func TestCompileFilterListErrors(t *testing.T) {
 		t.Error("unwritable bloom path: expected error")
 	}
 }
+
+func TestCompileFilterListSidecarsAndCosmeticOnly(t *testing.T) {
+	dir := t.TempDir()
+	in := filepath.Join(dir, "list.txt")
+	content := strings.Join([]string{
+		"||ads.example.com^",
+		"##.generic-banner",
+		"vnexpress.net##.top-ad",
+		"example.com##+js(set-constant, ads, false)",
+		"||service.hotstar.com^*/preroll?",
+		"/pagead.js$script",
+	}, "\n")
+	if err := os.WriteFile(in, []byte(content), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	triePath := filepath.Join(dir, "filter1.trie")
+	bloomPath := filepath.Join(dir, "filter1.bloom")
+	n, err := CompileFilterList(in, triePath, bloomPath)
+	if err != nil {
+		t.Fatalf("CompileFilterList failed: %v", err)
+	}
+	if n != 1 {
+		t.Errorf("expected 1 domain count, got %d", n)
+	}
+	cssBytes, err := os.ReadFile(filepath.Join(dir, "filter1.css"))
+	if err != nil || !strings.Contains(string(cssBytes), "vnexpress.net##.top-ad") || !strings.Contains(string(cssBytes), "##.generic-banner") {
+		t.Errorf("unexpected sidecar css: %q (err=%v)", string(cssBytes), err)
+	}
+	slBytes, err := os.ReadFile(filepath.Join(dir, "filter1.scriptlets"))
+	if err != nil || !strings.Contains(string(slBytes), "example.com##+js(set-constant, ads, false)") {
+		t.Errorf("unexpected sidecar scriptlets: %q (err=%v)", string(slBytes), err)
+	}
+	modBytes, err := os.ReadFile(filepath.Join(dir, "filter1.modules.json"))
+	if err != nil || !strings.Contains(string(modBytes), "/preroll?") || !strings.Contains(string(modBytes), "/pagead.js") {
+		t.Errorf("unexpected sidecar modules.json: %q (err=%v)", string(modBytes), err)
+	}
+}

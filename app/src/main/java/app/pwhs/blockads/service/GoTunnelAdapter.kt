@@ -426,21 +426,13 @@ class GoTunnelAdapter(
         Timber.d("Go tunnel engine stopped")
     }
 
-    /**
-     * Update the Go engine with the latest Trie and Bloom Filter file paths dynamically.
-     * Paths are CSV-formatted strings (e.g., "path1,path2,path3").
-     */
     fun updateTries() {
         engine.setTries(filterRepo.getAdTriePath(), filterRepo.getSecurityTriePath(), filterRepo.getAdBloomPath(), filterRepo.getSecurityBloomPath())
     }
 
-    /**
-     * Load the latest cosmetic rules + scriptlet rules from the cache
-     * and send them to the Go engine.
-     */
     fun updateCosmeticRules() {
         runCatching {
-            val css = TunnelRuleLoader.loadCosmeticCss(context)
+            val css = TunnelRuleLoader.loadCosmeticCss(context, filterRepo.getCosmeticCssPath())
             engine.setCosmeticCSS(css)
             Timber.d("Cosmetic CSS updated for engine: %d bytes", css.length)
         }.onFailure {
@@ -461,7 +453,7 @@ class GoTunnelAdapter(
         }.onFailure { Timber.e(it, "Failed to load rule manifest for engine") }
 
         runCatching {
-            TunnelRuleLoader.loadModules(context, engine)
+            TunnelRuleLoader.loadModules(context, engine, filterRepo.getFilterModulesPath())
         }.onFailure { Timber.e(it, "Failed to load modular rules for engine") }
 
         runCatching {
@@ -482,9 +474,6 @@ class GoTunnelAdapter(
         }
     }
 
-    /**
-     * Get engine statistics as JSON.
-     */
     fun getStats(): String = engine.stats
 
     fun setRulesetConfig(content: String): Long = runCatching {

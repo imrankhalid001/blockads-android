@@ -82,6 +82,11 @@ class FilterListRepository(
         return if (file.exists() && file.length() > 0) file.absolutePath else null
     }
 
+    fun getFilterModulesPath(): String? {
+        val file = File(context.filesDir, "$CACHE_DIR/filter_modules.json")
+        return if (file.exists() && file.length() > 0) file.absolutePath else null
+    }
+
     /** Returns adPathPatterns from browser_rules.json as newline-separated string. */
     fun getAdPathPatterns(): String {
         return try {
@@ -151,39 +156,13 @@ class FilterListRepository(
         Timber.d("Loaded ${whitelistedDomains.size} whitelisted domains")
     }
 
-    // ────────────────────────────────────────────────────────────────────
-    // Seeding & Remote Sync
-    // ────────────────────────────────────────────────────────────────────
+    suspend fun seedDefaultsIfNeeded() = seeder.seedDefaultsIfNeeded()
 
-    /**
-     * Seeds default filter lists from bundled assets and syncs with remote compiler API.
-     */
-    suspend fun seedDefaultsIfNeeded() {
-        seeder.seedDefaultsIfNeeded()
-    }
+    suspend fun fetchAndSyncRemoteFilterLists() = seeder.fetchAndSyncRemoteFilterLists()
 
-    /**
-     * Fetches the remote filter_lists.json and syncs pre-compiled URLs to the local DB.
-     */
-    suspend fun fetchAndSyncRemoteFilterLists() {
-        seeder.fetchAndSyncRemoteFilterLists()
-    }
+    internal fun parseRemoteFilterJson(json: String): List<app.pwhs.blockads.data.remote.models.FilterList> =
+        seeder.parseFilterJson(json)
 
-    /**
-     * Simple JSON parser for the filter_lists.json array.
-     */
-    internal fun parseRemoteFilterJson(json: String): List<app.pwhs.blockads.data.remote.models.FilterList> {
-        return seeder.parseFilterJson(json)
-    }
-
-    // ────────────────────────────────────────────────────────────────────
-    // Filter Loading & Download
-    // ────────────────────────────────────────────────────────────────────
-
-    /**
-     * Load all enabled filter lists using FilterDownloadManager.
-     * Downloads pre-compiled .bloom/.trie files and collects paths as CSV strings for the Go engine.
-     */
     suspend fun loadAllEnabledFilters(): Result<Int> = withContext(Dispatchers.IO) {
         loadMutex.withLock {
             try {
@@ -194,6 +173,8 @@ class FilterListRepository(
                     adBloomPaths = ""
                     securityBloomPaths = ""
                     File(context.filesDir, "$CACHE_DIR/cosmetic_rules.css").delete()
+                    File(context.filesDir, "$CACHE_DIR/scriptlets_combined.txt").delete()
+                    File(context.filesDir, "$CACHE_DIR/filter_modules.json").delete()
                     _domainCountFlow.value = 0
                     return@withContext Result.success(0)
                 }
@@ -241,6 +222,7 @@ class FilterListRepository(
 
                 compileCosmeticRules(enabledLists)
                 compileScriptletRules(enabledLists)
+                compileModuleRules(enabledLists)
 
                 _domainCountFlow.value = totalCount
                 val elapsed = System.currentTimeMillis() - startTime
@@ -265,7 +247,6 @@ class FilterListRepository(
                 val sb = StringBuilder()
                 var added = 0
                 for (filter in validLists) {
-                    if (filter.scriptletsUrl.isEmpty()) continue
                     val f = File(context.filesDir, "remote_filters/${filter.id}.scriptlets")
                     if (f.exists() && f.length() > 0) {
                         sb.append(f.readText())
@@ -291,13 +272,15 @@ class FilterListRepository(
         withContext(Dispatchers.IO) {
             try {
                 val validLists = enabledLists.filter { it.category != FilterList.CATEGORY_SECURITY }
-                if (validLists.isEmpty()) return@withContext
+                if (validLists.isEmpty()) {
+                    File(context.filesDir, "$CACHE_DIR/cosmetic_rules.css").delete()
+                    return@withContext
+                }
 
                 val cssBuilder = StringBuilder()
                 var rulesAdded = 0
 
                 for (filter in validLists) {
-                    if (filter.cssUrl.isEmpty()) continue
                     val cssFile = File(context.filesDir, "remote_filters/${filter.id}.css")
                     if (cssFile.exists() && cssFile.length() > 0) {
                         val cssSnippet = downloadManager.getInjectableCss(cssFile)
@@ -318,6 +301,60 @@ class FilterListRepository(
                 }
             } catch (e: Exception) {
                 Timber.e(e, "Failed to compile cosmetic rules")
+            }
+        }
+
+    private suspend fun compileModuleRules(enabledLists: List<FilterList>) =
+        withContext(Dispatchers.IO) {
+            try {
+                val outFile = File(context.filesDir, "$CACHE_DIR/filter_modules.json")
+                val validLists = enabledLists.filter { it.category != FilterList.CATEGORY_SECURITY }
+                if (validLists.isEmpty()) {
+                    outFile.delete()
+                    return@withContext
+                }
+
+                val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true; isLenient = true }
+                val mergedDomains = mutableMapOf<String, Pair<MutableSet<String>, MutableSet<String>>>()
+                val mergedGlobalPaths = mutableSetOf<String>()
+
+                for (filter in validLists) {
+                    val modFile = File(context.filesDir, "remote_filters/${filter.id}.modules.json")
+                    if (!modFile.exists() || modFile.length() == 0L) continue
+                    val pkg = runCatching {
+                        json.decodeFromString<app.pwhs.blockads.data.models.ModuleRulesPackage>(modFile.readText())
+                    }.getOrNull() ?: continue
+
+                    mergedGlobalPaths.addAll(pkg.globalBlockPaths)
+                    for ((domain, rules) in pkg.domains) {
+                        val pair = mergedDomains.getOrPut(domain.lowercase()) { mutableSetOf<String>() to mutableSetOf<String>() }
+                        pair.first.addAll(rules.css)
+                        pair.second.addAll(rules.blockPaths)
+                    }
+                }
+
+                if (mergedDomains.isNotEmpty() || mergedGlobalPaths.isNotEmpty()) {
+                    val outPkg = app.pwhs.blockads.data.models.ModuleRulesPackage(
+                        name = "merged_filters",
+                        ruleCount = mergedDomains.size + mergedGlobalPaths.size,
+                        domains = mergedDomains.mapValues { (_, pair) ->
+                            app.pwhs.blockads.data.models.DomainModuleRules(
+                                css = pair.first.toList(),
+                                blockPaths = pair.second.toList()
+                            )
+                        },
+                        globalBlockPaths = mergedGlobalPaths.toList()
+                    )
+                    outFile.parentFile?.mkdirs()
+                    outFile.writeText(
+                        json.encodeToString(app.pwhs.blockads.data.models.ModuleRulesPackage.serializer(), outPkg)
+                    )
+                    Timber.d("Wrote filter modules (${mergedDomains.size} domains, ${mergedGlobalPaths.size} global paths)")
+                } else {
+                    outFile.delete()
+                }
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to compile filter module rules")
             }
         }
 

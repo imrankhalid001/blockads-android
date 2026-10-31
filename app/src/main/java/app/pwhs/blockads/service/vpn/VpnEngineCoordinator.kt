@@ -211,7 +211,7 @@ class VpnEngineCoordinator(
         }
 
         val selectedBrowsers = appPrefs.getSelectedBrowsersSnapshot()
-        val filterHttp3 = if (httpsFilteringEnabled) true else appPrefs.getFilterHttp3Snapshot()
+        val filterHttp3 = httpsFilteringEnabled && appPrefs.getFilterHttp3Snapshot()
         val blockDohBypass = appPrefs.getBlockDohBypassSnapshot()
         val blockWebRtc = appPrefs.getBlockWebRtcLeakSnapshot()
 
@@ -258,8 +258,9 @@ class VpnEngineCoordinator(
     fun startFilterUpdateWatcher(scope: CoroutineScope, goTunnelAdapter: GoTunnelAdapter) {
         scope.launch {
             filterRepo.domainCountFlow.drop(1).collectLatest { count ->
-                Timber.d("Filter count changed to $count. Dynamically updating Native Go Tries.")
+                Timber.d("Filter count changed to $count. Dynamically updating Native Go Tries & Cosmetic rules.")
                 goTunnelAdapter.updateTries()
+                goTunnelAdapter.updateCosmeticRules()
             }
         }
         scope.launch {

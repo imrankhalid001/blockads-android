@@ -2,20 +2,20 @@ package trie
 
 import (
 	"bufio"
-	"bytes"
 	"encoding/binary"
+	"encoding/json"
 	"fmt"
-	"net"
 	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 
 	"github.com/nqmgaming/blockads-tunnel/internal/bloom"
 )
 
-// CompileFilterList downloads a filter list from rawPath (local file path),
-// parses domains, and writes .trie and .bloom files.
-// Returns the number of domains compiled, or an error.
+// CompileFilterList parses a local raw filter list at inputPath and writes
+// .trie, .bloom, and optional sidecar .css, .scriptlets, and .modules.json files.
+// Returns the number of compiled rules, or an error.
 func CompileFilterList(inputPath, triePath, bloomPath string) (int, error) {
 	f, err := os.Open(inputPath)
 	if err != nil {
@@ -23,19 +23,90 @@ func CompileFilterList(inputPath, triePath, bloomPath string) (int, error) {
 	}
 	defer f.Close()
 
-	// Pass 1: collect unique domains (streaming, line-by-line)
 	domains := make(map[string]struct{})
+	seenCSS := make(map[string]struct{})
+	seenScriptlets := make(map[string]struct{})
+	var cssRules []string
+	var scriptlets []string
+
+	domainModules := make(map[string]*domainModuleRules)
+	seenGlobalCSS := make(map[string]struct{})
+	var globalCSS []string
+	seenGlobalPaths := make(map[string]struct{})
+	var globalBlockPaths []string
+
 	scanner := bufio.NewScanner(f)
-	scanner.Buffer(make([]byte, 256*1024), 256*1024)
+	scanner.Buffer(make([]byte, 256*1024), 1024*1024)
 	for scanner.Scan() {
-		lineBytes := bytes.TrimSpace(scanner.Bytes())
-		if len(lineBytes) == 0 || lineBytes[0] == '#' || lineBytes[0] == '!' {
+		rawLine := strings.TrimSpace(scanner.Text())
+		if rawLine == "" || strings.HasPrefix(rawLine, "!") || (strings.HasPrefix(rawLine, "#") && !strings.HasPrefix(rawLine, "##")) {
 			continue
 		}
-		if bytes.HasPrefix(lineBytes, []byte("@@")) {
+
+		// 1. Extract Scriptlet Rules
+		if strings.Contains(rawLine, "##+js(") || strings.Contains(rawLine, "#%#//scriptlet(") {
+			if _, exists := seenScriptlets[rawLine]; !exists {
+				seenScriptlets[rawLine] = struct{}{}
+				scriptlets = append(scriptlets, rawLine)
+			}
 			continue
 		}
-		d := parseDomainLine(string(lineBytes))
+
+		// 2. Extract Cosmetic CSS Rules (generic ## and domain-specific domain##)
+		if doms, selector, ok := parseCosmeticRule(rawLine); ok {
+			if len(doms) == 0 {
+				rule := "##" + selector
+				if _, exists := seenCSS[rule]; !exists {
+					seenCSS[rule] = struct{}{}
+					cssRules = append(cssRules, rule)
+				}
+				if _, exists := seenGlobalCSS[selector]; !exists {
+					seenGlobalCSS[selector] = struct{}{}
+					globalCSS = append(globalCSS, selector)
+				}
+			} else {
+				fullRule := strings.Join(doms, ",") + "##" + selector
+				if _, exists := seenCSS[fullRule]; !exists {
+					seenCSS[fullRule] = struct{}{}
+					cssRules = append(cssRules, fullRule)
+				}
+				for _, d := range doms {
+					if strings.HasPrefix(d, "~") {
+						continue
+					}
+					mod, exists := domainModules[d]
+					if !exists {
+						mod = &domainModuleRules{}
+						domainModules[d] = mod
+					}
+					mod.CSS = append(mod.CSS, selector)
+				}
+			}
+			continue
+		}
+
+		// 3. Extract URL Network Path Rules
+		if targetDomain, pathPattern, ok := parseNetworkPathRule(rawLine); ok {
+			if targetDomain == "*" {
+				if _, exists := seenGlobalPaths[pathPattern]; !exists {
+					seenGlobalPaths[pathPattern] = struct{}{}
+					globalBlockPaths = append(globalBlockPaths, pathPattern)
+				}
+			} else {
+				mod, exists := domainModules[targetDomain]
+				if !exists {
+					mod = &domainModuleRules{}
+					domainModules[targetDomain] = mod
+				}
+				mod.BlockPaths = append(mod.BlockPaths, pathPattern)
+			}
+		}
+
+		// 4. Extract Domains (for DNS Trie & Bloom)
+		if strings.HasPrefix(rawLine, "@@") {
+			continue
+		}
+		d := parseDomainLine(rawLine)
 		if d != "" {
 			domains[d] = struct{}{}
 		}
@@ -44,12 +115,12 @@ func CompileFilterList(inputPath, triePath, bloomPath string) (int, error) {
 		return 0, fmt.Errorf("scan input: %w", err)
 	}
 
-	count := len(domains)
-	if count == 0 {
-		return 0, fmt.Errorf("no valid domains found in filter list")
+	hasModules := len(domainModules) > 0 || len(globalCSS) > 0 || len(globalBlockPaths) > 0
+	if len(domains) == 0 && len(cssRules) == 0 && len(scriptlets) == 0 && !hasModules {
+		return 0, fmt.Errorf("no valid rules found in filter list")
 	}
 
-	// Build trie
+	// Build trie (even if 0 domains, write valid empty trie so loader succeeds)
 	root := newTrieBuilderNode()
 	for d := range domains {
 		root.insert(d)
@@ -59,7 +130,7 @@ func CompileFilterList(inputPath, triePath, bloomPath string) (int, error) {
 	}
 
 	// Build bloom filter
-	bloomFilter := bloom.NewBloomBuilder(count, 0.001)
+	bloomFilter := bloom.NewBloomBuilder(len(domains), 0.001)
 	for d := range domains {
 		bloomFilter.Add(d)
 	}
@@ -67,143 +138,39 @@ func CompileFilterList(inputPath, triePath, bloomPath string) (int, error) {
 		return 0, fmt.Errorf("write bloom: %w", err)
 	}
 
-	fmt.Fprintf(os.Stderr, "[BlockAds/Go] Compiled %d domains → %s + %s\n", count, triePath, bloomPath)
-	return count, nil
-}
-
-func parseDomainLine(line string) string {
-	line = strings.TrimSpace(line)
-
-	if line == "" || line[0] == '#' || line[0] == '!' {
-		return ""
+	// Write optional sidecar files (.css, .scriptlets, .modules.json) next to triePath
+	basePath := strings.TrimSuffix(triePath, ".trie")
+	if len(cssRules) > 0 {
+		_ = os.WriteFile(basePath+".css", []byte(strings.Join(cssRules, "\n")+"\n"), 0644)
 	}
-
-	if strings.HasPrefix(line, "@@") {
-		return ""
+	if len(scriptlets) > 0 {
+		sort.Strings(scriptlets)
+		_ = os.WriteFile(basePath+".scriptlets", []byte(strings.Join(scriptlets, "\n")+"\n"), 0644)
 	}
-
-	// Cosmetic and scriptlet rules are not domains
-	if strings.Contains(line, "##") || strings.Contains(line, "#@#") || strings.Contains(line, "#?#") ||
-		strings.Contains(line, "#$#") || strings.Contains(line, "#%#") {
-		return ""
-	}
-
-	// Support Wildcard domain format: *.example.com (HaGeZi wildcard, OISD domainswild)
-	if strings.HasPrefix(line, "*.") {
-		line = strings.TrimPrefix(line, "*.")
-	}
-
-	// dnsmasq format: server=/domain.com/ or address=/domain.com/0.0.0.0
-	if strings.HasPrefix(line, "server=/") || strings.HasPrefix(line, "address=/") {
-		clean := strings.TrimPrefix(strings.TrimPrefix(line, "server=/"), "address=/")
-		if slashIdx := strings.IndexByte(clean, '/'); slashIdx != -1 {
-			line = clean[:slashIdx]
+	if hasModules {
+		pkg := &moduleRulesPackage{
+			Name:             filepath.Base(basePath),
+			RuleCount:        len(domains) + len(cssRules) + len(scriptlets),
+			Domains:          domainModules,
+			GlobalCSS:        globalCSS,
+			GlobalBlockPaths: globalBlockPaths,
+		}
+		if modBytes, err := json.Marshal(pkg); err == nil {
+			_ = os.WriteFile(basePath+".modules.json", modBytes, 0644)
 		}
 	}
 
-	if strings.ContainsAny(line, "$/\\*") && !strings.HasPrefix(line, "||") {
-		return ""
-	}
-
-	var domain string
-	isABP := strings.HasPrefix(line, "||")
-
-	switch {
-	case isABP:
-		domain = strings.TrimPrefix(line, "||")
-
-		// Handle wildcard prefixes: ||*.example.com^ or ||*.tld^
-		domain = strings.TrimPrefix(domain, "*.")
-		domain = strings.TrimPrefix(domain, "*")
-
-		// If the rule contains wildcards (*, ?) or paths (/), it's a URL-level rule.
-		// A DNS-level blocker cannot handle this and will over-block if suffix is stripped.
-		if strings.ContainsAny(domain, "/*?") {
-			return ""
-		}
-
-		// Handle modifiers after $
-		if dollarIdx := strings.IndexByte(domain, '$'); dollarIdx != -1 {
-			options := domain[dollarIdx+1:]
-			for _, opt := range strings.Split(options, ",") {
-				opt = strings.TrimSpace(opt)
-				if opt == "" || opt == "important" || opt == "empty" || opt == "mp4" ||
-					opt == "all" || opt == "popup" || opt == "document" || opt == "doc" ||
-					opt == "dns" || strings.HasPrefix(opt, "dnstype") || opt == "cname" ||
-					opt == "network" || strings.HasPrefix(opt, "ctag") || strings.HasPrefix(opt, "denyallow") {
-					continue
-				}
-				return ""
-			}
-			domain = domain[:dollarIdx]
-		}
-
-		if idx := strings.IndexByte(domain, '^'); idx != -1 {
-			domain = domain[:idx]
-		}
-
-	case strings.HasPrefix(line, "0.0.0.0 "),
-		strings.HasPrefix(line, "127.0.0.1 "):
-		fields := strings.Fields(line)
-		if len(fields) >= 2 {
-			domain = fields[1]
-		}
-		if idx := strings.IndexByte(domain, '#'); idx != -1 {
-			domain = domain[:idx]
-		}
-
-	default:
-		if !strings.ContainsAny(line, " \t") && strings.Contains(line, ".") {
-			domain = line
+	effectiveCount := len(domains)
+	if effectiveCount == 0 {
+		effectiveCount = len(cssRules) + len(scriptlets)
+		if effectiveCount == 0 {
+			effectiveCount = len(domainModules) + len(globalBlockPaths)
 		}
 	}
 
-	domain = strings.TrimSpace(strings.ToLower(domain))
-
-	if domain == "" || domain == "localhost" || domain == "localhost.localdomain" ||
-		domain == "local" || domain == "broadcasthost" {
-		return ""
-	}
-
-	// Single-label domains are rejected unless they come from an ABP TLD rule (e.g. ||*.actor^)
-	if !strings.Contains(domain, ".") && !isABP {
-		return ""
-	}
-
-	// Reject IP addresses
-	if domain[0] >= '0' && domain[0] <= '9' {
-		allDigitsOrDots := true
-		for _, r := range domain {
-			if (r < '0' || r > '9') && r != '.' {
-				allDigitsOrDots = false
-				break
-			}
-		}
-		if allDigitsOrDots && net.ParseIP(domain) != nil {
-			return ""
-		}
-	}
-
-	// Validate valid hostname labels [a-z0-9-_]
-	labels := strings.Split(domain, ".")
-	if len(labels) < 2 && !isABP {
-		return ""
-	}
-	for _, label := range labels {
-		if label == "" {
-			return ""
-		}
-		for i, r := range label {
-			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' && r != '_' {
-				return ""
-			}
-			if (r == '-' || r == '_') && (i == 0 || i == len(label)-1) {
-				return ""
-			}
-		}
-	}
-
-	return domain
+	fmt.Fprintf(os.Stderr, "[BlockAds/Go] Compiled %d domains, %d CSS, %d scriptlets → %s\n",
+		len(domains), len(cssRules), len(scriptlets), triePath)
+	return effectiveCount, nil
 }
 
 type trieBuilderNode struct {

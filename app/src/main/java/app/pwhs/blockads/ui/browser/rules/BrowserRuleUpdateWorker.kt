@@ -22,6 +22,7 @@ class BrowserRuleUpdateWorker(
 ) : CoroutineWorker(context, params), KoinComponent {
 
     private val repository: BrowserRuleRepository by inject()
+    private val goTunnelAdapter: app.pwhs.blockads.service.GoTunnelAdapter by inject()
 
     companion object {
         const val WORK_NAME = "browser_rule_update_work"
@@ -50,8 +51,14 @@ class BrowserRuleUpdateWorker(
     override suspend fun doWork(): Result {
         return try {
             Timber.d("Starting background browser rule update work")
-            val result = repository.checkAndUpdate()
-            if (result.isSuccess) {
+            val rulesResult = repository.checkAndUpdate()
+            val modulesResult = repository.checkAndUpdateModules()
+            if (rulesResult.getOrDefault(false) || modulesResult.getOrDefault(false)) {
+                if (goTunnelAdapter.isEngineRunning()) {
+                    goTunnelAdapter.updateCosmeticRules()
+                }
+            }
+            if (rulesResult.isSuccess) {
                 Result.success()
             } else {
                 Result.retry()
