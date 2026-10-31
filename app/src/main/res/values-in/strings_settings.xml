@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">Alamat Server</string>
     <string name="dns_custom_presets">Preset Cepat</string>
     <string name="dns_custom_active_badge">Menggunakan DNS Kustom</string>
+    <string name="settings_category_advanced">Lanjutan &amp; Proxy</string>
+    <string name="settings_category_advanced_desc">Penyaringan HTTPS, Proxy &amp; VPN, Mode Root</string>
+    <string name="settings_reset">Atur Ulang Pengaturan</string>
+    <string name="settings_reset_confirm_message">Apakah Anda yakin ingin mengatur ulang semua pengaturan ke default? Preferensi yang disesuaikan akan dikembalikan ke default aslinya.</string>
+    <string name="settings_reset_success">Pengaturan telah diatur ulang ke default</string>
+    <string name="settings_bottom_nav_secondary_tab">Tab Navigasi Sekunder</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">Pilih apakah akan menampilkan Filter atau VPN di bilah navigasi</string>
+    <string name="settings_bottom_nav_tab_auto">Otomatis (Default)</string>
+    <string name="settings_bottom_nav_tab_filter">Pengaturan Filter</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN &amp; Proxy</string>
+    <string name="rate_app_title">Menikmati BlockAds?</string>
+    <string name="rate_app_desc">BlockAds telah memblokir lebih dari %1$d iklan untuk Anda. Jika aplikasi ini bermanfaat, luangkan waktu sejenak untuk memberi kami nilai 5 bintang di Google Play!</string>
+    <string name="rate_app_action_rate">Beri Nilai 5 Bintang</string>
+    <string name="rate_app_action_feedback">Kirim Masukan</string>
+    <string name="rate_app_action_later">Nanti Saja</string>
+    <string name="about_rate_app">Beri Nilai di Google Play</string>
 </resources>

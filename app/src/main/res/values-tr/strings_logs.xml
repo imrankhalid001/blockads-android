@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">Filtre Listesi</string>
     <string name="stats_country_top_domains_title">%s İçindeki En İyi Alan Adları</string>
     <string name="stats_country_top_domains_empty">Bu ülke için kaydedilmiş alan adı sorgusu yok</string>
+    <string name="log_unknown_app">Bilinmeyen</string>
 </resources>

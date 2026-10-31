@@ -6,8 +6,6 @@
     <string name="cert_action_check_again">重新检查</string>
     <string name="cert_action_reinstall">重新安装</string>
     <string name="cert_action_install">安装证书</string>
-    <string name="cert_snackbar_user_store_success">已成功安装到用户证书存储区！</string>
-    <string name="cert_snackbar_magisk_module_success">Magisk 模块已生成！重启设备即可完全激活。</string>
     <string name="device_step_open_settings">打开系统设置</string>
     <string name="device_step_samsung_security_privacy">选择“安全与隐私”</string>
     <string name="device_step_samsung_more_security">向下滚动并选择“更多安全设置”</string>

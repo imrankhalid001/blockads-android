@@ -6,8 +6,6 @@
     <string name="cert_action_check_again">ตรวจสอบอีกครั้ง</string>
     <string name="cert_action_reinstall">ติดตั้งใหม่</string>
     <string name="cert_action_install">ติดตั้งใบรับรอง</string>
-    <string name="cert_snackbar_user_store_success">ติดตั้งลงในที่จัดเก็บของผู้ใช้สำเร็จแล้ว!</string>
-    <string name="cert_snackbar_magisk_module_success">สร้างโมดูล Magisk แล้ว! รีสตาร์ทอุปกรณ์เพื่อเปิดใช้งาน</string>
     <string name="device_step_open_settings">เปิดการตั้งค่าระบบ</string>
     <string name="device_step_samsung_security_privacy">เลือก ความปลอดภัยและความเป็นส่วนตัว</string>
     <string name="device_step_samsung_more_security">เลื่อนลงและเลือก การตั้งค่าความปลอดภัยอื่นๆ</string>

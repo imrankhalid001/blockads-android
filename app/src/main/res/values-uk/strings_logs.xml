@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">Список фільтрів</string>
     <string name="stats_country_top_domains_title">Найпопулярніші домени в %s</string>
     <string name="stats_country_top_domains_empty">Для цієї країни не зареєстровано запитів до доменів</string>
+    <string name="log_unknown_app">Невідомо</string>
 </resources>

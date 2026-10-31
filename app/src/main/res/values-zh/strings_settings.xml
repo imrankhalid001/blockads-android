@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">服务器地址</string>
     <string name="dns_custom_presets">快速预设</string>
     <string name="dns_custom_active_badge">正在使用自定义 DNS</string>
+    <string name="settings_category_advanced">高级与代理</string>
+    <string name="settings_category_advanced_desc">HTTPS 过滤、代理与 VPN、Root 模式</string>
+    <string name="settings_reset">重置设置</string>
+    <string name="settings_reset_confirm_message">确定要将所有设置恢复为默认值吗？您的个性化配置将恢复为初始状态。</string>
+    <string name="settings_reset_success">设置已重置为默认值</string>
+    <string name="settings_bottom_nav_secondary_tab">次要导航标签页</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">选择在导航栏中显示规则过滤器还是 VPN</string>
+    <string name="settings_bottom_nav_tab_auto">自动（默认）</string>
+    <string name="settings_bottom_nav_tab_filter">规则配置</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN 与代理</string>
+    <string name="rate_app_title">觉得 BlockAds 好用吗？</string>
+    <string name="rate_app_desc">BlockAds 已为您拦截超过 %1$d 条广告。如果觉得本应用有帮助，请花一点时间在 Google Play 上为我们打 5 星好评！</string>
+    <string name="rate_app_action_rate">给出 5 星好评</string>
+    <string name="rate_app_action_feedback">发送反馈</string>
+    <string name="rate_app_action_later">稍后再说</string>
+    <string name="about_rate_app">在 Google Play 上评价</string>
 </resources>

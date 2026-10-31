@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">서버 주소</string>
     <string name="dns_custom_presets">빠른 프리셋</string>
     <string name="dns_custom_active_badge">사용자 정의 DNS 사용 중</string>
+    <string name="settings_category_advanced">고급 및 프록시</string>
+    <string name="settings_category_advanced_desc">HTTPS 필터링, 프록시 및 VPN, Root 모드</string>
+    <string name="settings_reset">설정 초기화</string>
+    <string name="settings_reset_confirm_message">모든 설정을 기본값으로 초기화하시겠습니까? 맞춤 설정한 모든 항목이 원래의 기본값으로 복원됩니다.</string>
+    <string name="settings_reset_success">설정이 기본값으로 초기화되었습니다</string>
+    <string name="settings_bottom_nav_secondary_tab">보조 탐색 탭</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">탐색 메뉴에 필터 또는 VPN 표시 여부를 선택하세요</string>
+    <string name="settings_bottom_nav_tab_auto">자동 (기본값)</string>
+    <string name="settings_bottom_nav_tab_filter">필터 설정</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN 및 프록시</string>
+    <string name="rate_app_title">BlockAds가 마음에 드시나요?</string>
+    <string name="rate_app_desc">BlockAds가 %1$d개 이상의 광고를 차단했습니다. 앱이 유용하다고 생각되시면 Google Play에서 별점 5점을 남겨주세요!</string>
+    <string name="rate_app_action_rate">별점 5점 평가</string>
+    <string name="rate_app_action_feedback">의견 보내기</string>
+    <string name="rate_app_action_later">나중에</string>
+    <string name="about_rate_app">Google Play에서 평가</string>
 </resources>

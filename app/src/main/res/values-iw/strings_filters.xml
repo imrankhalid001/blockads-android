@@ -115,7 +115,6 @@
     <string name="https_filtering_stopped">סינון HTTPS הופסק</string>
     <string name="https_filtering_http3_title">סנן HTTP/3 (QUIC)</string>
     <string name="https_filtering_http3_desc">חסום QUIC בדפדפן כדי לאלץ חיבורים ניתנים לסינון לסינון פרסומות מרבי. עלול לגרום לטעינה חלקית של דפים מסוימים. כבה אם דפים לא נטענים במלואם.</string>
-    <string name="https_filtering_root_install">התקן תעודה באמצעות Root</string>
     <string name="https_wizard_title">הגדרת תעודה</string>
     <string name="https_wizard_step_indicator_format">שלב %1$d מתוך %2$d: %3$s</string>
     <string name="https_wizard_security_title">אבטחה ופרטיות</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">מכשיר יעד: %1$s</string>
     <string name="https_wizard_device_brand_generic">מכשיר ה-Android שלך</string>
     <string name="https_wizard_install_instructions_title">מדריך שלב אחר שלב</string>
-    <string name="https_wizard_root_detected_title">זוהתה גישת Root (מומלץ)</string>
-    <string name="https_wizard_root_detected_desc">למכשיר שלך יש גישת root. באפשרותך להתקין את תעודת ה-CA באופן אוטומטי ללא הגדרה ידנית.</string>
     <string name="https_wizard_checking_title">מאמת תעודה…</string>
     <string name="https_wizard_checking_desc">סורק את מאגר האמון של Android עבור BlockAds CA…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA מאומת ופעיל במאגר האמון של המכשיר שלך. סינון HTTPS מתקדם מוכן לפעולה!</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">המשך</string>
     <string name="https_wizard_prev">חזור</string>
     <string name="https_wizard_finish">סיום והפעלה</string>
-    <string name="https_wizard_root_fast">התקנה מהירה</string>
-    <string name="https_wizard_root_module">מודול Magisk</string>
     <string name="https_wizard_copy_filename">העתק שם קובץ</string>
     <string name="https_wizard_filename_copied">שם קובץ התעודה הועתק ללוח</string>
     <string name="https_wizard_verified_success">התעודה מאומתת ומוכנה לשימוש!</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">ערוך רשימת סינון</string>
     <string name="filter_edit_url_dialog_title">ערוך כתובת URL של המסנן</string>
     <string name="https_filtering_proxy_vpn_conflict">לא ניתן להפעיל סינון HTTPS כאשר מצב Proxy &amp; VPN פעיל</string>
+    <string name="https_filtering_cert_required_desc">התקן תעודת CA כדי להפעיל</string>
+    <string name="https_filtering_cert_not_installed_error">יש להתקין תעודת CA לפני הפעלת סינון HTTPS</string>
+    <string name="filter_tag_all">הכל</string>
+    <string name="filter_tag_create">צור תגית</string>
+    <string name="filter_tag_create_title">צור תגית סיווג</string>
+    <string name="filter_tag_name_label">שם התגית</string>
+    <string name="filter_tag_name_placeholder">לדוגמה: מודעות, YouTube, רשתות חברתיות…</string>
+    <string name="filter_tag_section_title">סיווג / תגית</string>
+    <string name="filter_tag_delete">מחק תגית</string>
+    <string name="filter_tag_delete_confirm">למחוק את התגית \"%1$s\"?</string>
+    <string name="filter_tag_empty">אין עדיין מסננים עם תגית זו</string>
+    <string name="filter_tag_quick_presets">הצעות</string>
 </resources>

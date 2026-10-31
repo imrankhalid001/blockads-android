@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">כתובת שרת</string>
     <string name="dns_custom_presets">הגדרות מהירות</string>
     <string name="dns_custom_active_badge">משתמש ב-DNS מותאם אישית</string>
+    <string name="settings_category_advanced">מתקדם ופרוקסי</string>
+    <string name="settings_category_advanced_desc">סינון HTTPS, פרוקסי ו-VPN, מצב Root</string>
+    <string name="settings_reset">איפוס הגדרות</string>
+    <string name="settings_reset_confirm_message">האם אתה בטוח שברצונך לאפס את כל ההגדרות לברירת המחדל? ההעדפות המותאמות אישית שלך ישוחזרו לברירת המחדל המקורית.</string>
+    <string name="settings_reset_success">ההגדרות אופסו לברירת המחדל</string>
+    <string name="settings_bottom_nav_secondary_tab">לשונית ניווט משנית</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">בחר אם להציג מסננים או VPN בסרגל הניווט</string>
+    <string name="settings_bottom_nav_tab_auto">אוטומטי (ברירת מחדל)</string>
+    <string name="settings_bottom_nav_tab_filter">הגדרת מסננים</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN ופרוקסי</string>
+    <string name="rate_app_title">נהנה מ-BlockAds?</string>
+    <string name="rate_app_desc">BlockAds חסמה מעל %1$d מודעות עבורך. אם האפליקציה שימושית עבורך, נשמח אם תקדיש רגע לדרג אותנו ב-5 כוכבים ב-Google Play!</string>
+    <string name="rate_app_action_rate">דרג ב-5 כוכבים</string>
+    <string name="rate_app_action_feedback">שלח משוב</string>
+    <string name="rate_app_action_later">אולי מאוחר יותר</string>
+    <string name="about_rate_app">דרג ב-Google Play</string>
 </resources>

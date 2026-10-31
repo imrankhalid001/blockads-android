@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">Daftar Filter</string>
     <string name="stats_country_top_domains_title">Domain Teratas di %s</string>
     <string name="stats_country_top_domains_empty">Tidak ada kueri domain yang dicatat untuk negara ini</string>
+    <string name="log_unknown_app">Tidak dikenal</string>
 </resources>

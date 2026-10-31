@@ -115,7 +115,6 @@
     <string name="https_filtering_stopped">Filtrage HTTPS arrêté</string>
     <string name="https_filtering_http3_title">Filtrer HTTP/3 (QUIC)</string>
     <string name="https_filtering_http3_desc">Bloquer QUIC du navigateur pour forcer les connexions filtrables pour un filtrage maximal des publicités. Peut entraîner le chargement partiel de certaines pages. Désactivez si les pages ne se chargent pas complètement.</string>
-    <string name="https_filtering_root_install">Installer le certificat via Root</string>
     <string name="https_wizard_title">Configuration du certificat</string>
     <string name="https_wizard_step_indicator_format">Étape %1$d sur %2$d : %3$s</string>
     <string name="https_wizard_security_title">Sécurité et confidentialité</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">Appareil cible : %1$s</string>
     <string name="https_wizard_device_brand_generic">Votre appareil Android</string>
     <string name="https_wizard_install_instructions_title">Guide étape par étape</string>
-    <string name="https_wizard_root_detected_title">Accès Root détecté (recommandé)</string>
-    <string name="https_wizard_root_detected_desc">Votre appareil dispose d\'un accès root. Vous pouvez installer le certificat CA automatiquement sans configuration manuelle.</string>
     <string name="https_wizard_checking_title">Vérification du certificat…</string>
     <string name="https_wizard_checking_desc">Analyse du magasin de confiance Android pour BlockAds CA…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA est vérifié et actif dans le magasin de confiance de votre appareil. Le filtrage HTTPS avancé est prêt à l\'emploi !</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">Continuer</string>
     <string name="https_wizard_prev">Retour</string>
     <string name="https_wizard_finish">Terminer et activer</string>
-    <string name="https_wizard_root_fast">Installation rapide</string>
-    <string name="https_wizard_root_module">Module Magisk</string>
     <string name="https_wizard_copy_filename">Copier le nom du fichier</string>
     <string name="https_wizard_filename_copied">Nom du fichier de certificat copié dans le presse-papiers</string>
     <string name="https_wizard_verified_success">Le certificat est vérifié et prêt à l\'emploi !</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">Modifier la liste des filtres</string>
     <string name="filter_edit_url_dialog_title">Modifier l URL du filtre</string>
     <string name="https_filtering_proxy_vpn_conflict">Impossible d\'activer le filtrage HTTPS lorsque le mode Proxy et VPN est actif</string>
+    <string name="https_filtering_cert_required_desc">Installer le certificat CA pour activer</string>
+    <string name="https_filtering_cert_not_installed_error">Le certificat CA doit être installé avant d\'activer le filtrage HTTPS</string>
+    <string name="filter_tag_all">Tous</string>
+    <string name="filter_tag_create">Créer une étiquette</string>
+    <string name="filter_tag_create_title">Créer une étiquette de classification</string>
+    <string name="filter_tag_name_label">Nom de l\'étiquette</string>
+    <string name="filter_tag_name_placeholder">ex. Pubs, YouTube, Réseaux sociaux…</string>
+    <string name="filter_tag_section_title">Classification / Étiquette</string>
+    <string name="filter_tag_delete">Supprimer l\'étiquette</string>
+    <string name="filter_tag_delete_confirm">Supprimer l\'étiquette \"%1$s\" ?</string>
+    <string name="filter_tag_empty">Aucun filtre avec cette étiquette pour l\'instant</string>
+    <string name="filter_tag_quick_presets">Suggestions</string>
 </resources>

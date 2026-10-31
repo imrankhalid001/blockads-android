@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">Адреса сервера</string>
     <string name="dns_custom_presets">Швидкі шаблони</string>
     <string name="dns_custom_active_badge">Використовується власний DNS</string>
+    <string name="settings_category_advanced">Додатково та проксі</string>
+    <string name="settings_category_advanced_desc">HTTPS-фільтрація, Проксі та VPN, Режим Root</string>
+    <string name="settings_reset">Скинути налаштування</string>
+    <string name="settings_reset_confirm_message">Ви впевнені, що хочете скинути всі налаштування до стандартних? Ваші налаштовані параметри буде відновлено до початкових значень.</string>
+    <string name="settings_reset_success">Налаштування скинуто до стандартних</string>
+    <string name="settings_bottom_nav_secondary_tab">Додаткова вкладка навігації</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">Виберіть, показувати Фільтри чи VPN на панелі навігації</string>
+    <string name="settings_bottom_nav_tab_auto">Авто (За замовчуванням)</string>
+    <string name="settings_bottom_nav_tab_filter">Налаштування фільтрів</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN та проксі</string>
+    <string name="rate_app_title">Подобається BlockAds?</string>
+    <string name="rate_app_desc">BlockAds заблокував для вас понад %1$d оголошень. Якщо додаток для вас корисний, знайдіть хвилинку, щоб оцінити нас на 5 зірок у Google Play!</string>
+    <string name="rate_app_action_rate">Оцінити на 5 зірок</string>
+    <string name="rate_app_action_feedback">Надіслати відгук</string>
+    <string name="rate_app_action_later">Можливо, пізніше</string>
+    <string name="about_rate_app">Оцінити в Google Play</string>
 </resources>

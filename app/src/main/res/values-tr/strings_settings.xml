@@ -365,4 +365,20 @@ Veri toplama yok. İzleme yok.&quot;</string>
     <string name="dns_custom_server_ip">Sunucu Adresi</string>
     <string name="dns_custom_presets">Hızlı Ön Ayarlar</string>
     <string name="dns_custom_active_badge">Özel DNS Kullanılıyor</string>
+    <string name="settings_category_advanced">Gelişmiş ve Proxy</string>
+    <string name="settings_category_advanced_desc">HTTPS filtreleme, Proxy ve VPN, Root modu</string>
+    <string name="settings_reset">Ayarları Sıfırla</string>
+    <string name="settings_reset_confirm_message">Tüm ayarları varsayılana sıfırlamak istediğinizden emin misiniz? Özelleştirilmiş tercihleriniz orijinal varsayılanlarına geri yüklenecektir.</string>
+    <string name="settings_reset_success">Ayarlar varsayılana sıfırlandı</string>
+    <string name="settings_bottom_nav_secondary_tab">İkincil Gezinme Sekmesi</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">Gezinme çubuğunda Filtre veya VPN gösterilmesini seçin</string>
+    <string name="settings_bottom_nav_tab_auto">Otomatik (Varsayılan)</string>
+    <string name="settings_bottom_nav_tab_filter">Filtre Kurulumu</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN ve Proxy</string>
+    <string name="rate_app_title">BlockAds uygulamasını beğendiniz mi?</string>
+    <string name="rate_app_desc">BlockAds sizin için %1$d üzerinde reklamı engelledi. Uygulamayı yararlı buluyorsanız, lütfen Google Play üzerinde bizi 5 yıldızla değerlendirin!</string>
+    <string name="rate_app_action_rate">5 Yıldız Ver</string>
+    <string name="rate_app_action_feedback">Geri Bildirim Gönder</string>
+    <string name="rate_app_action_later">Belki Daha Sonra</string>
+    <string name="about_rate_app">Google Play\'de Değerlendir</string>
 </resources>

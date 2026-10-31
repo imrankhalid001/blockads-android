@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">Filterliste</string>
     <string name="stats_country_top_domains_title">Top-Domains in %s</string>
     <string name="stats_country_top_domains_empty">Keine Domain-Anfragen für dieses Land aufgezeichnet</string>
+    <string name="log_unknown_app">Unbekannt</string>
 </resources>

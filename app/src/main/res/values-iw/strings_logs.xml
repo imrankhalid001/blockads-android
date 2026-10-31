@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">רשימת מסננים</string>
     <string name="stats_country_top_domains_title">הדומיינים המובילים ב-%s</string>
     <string name="stats_country_top_domains_empty">לא נרשמו שאילתות דומיין עבור מדינה זו</string>
+    <string name="log_unknown_app">לא ידוע</string>
 </resources>

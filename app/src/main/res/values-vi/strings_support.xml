@@ -5,7 +5,6 @@
     <string name="support_error_filter_title">Không thể thêm bộ lọc</string>
     <string name="support_error_filter_desc">Không thể tải xuống hoặc biên dịch danh sách bộ lọc này. URL có thể không truy cập được, bị chặn hoặc cú pháp chưa được hỗ trợ. Hãy gửi link để chúng tôi hỗ trợ bạn.</string>
     <string name="support_error_subscription_title">Cập nhật Subscription thất bại</string>
-    <string name="support_error_subscription_desc">Không thể tải hoặc trích xuất danh sách node proxy từ đường dẫn subscription. Vui lòng kiểm tra lại URL hoặc liên hệ hỗ trợ.</string>
     <string name="support_channel_telegram_title">Nhóm hỗ trợ Telegram</string>
     <string name="support_channel_telegram_desc">Nhận hỗ trợ trực tiếp và nhanh chóng từ dev &amp; cộng đồng</string>
     <string name="support_channel_github_title">Báo lỗi trên GitHub</string>
@@ -15,6 +14,5 @@
     <string name="support_copy_details">Sao chép thông tin lỗi</string>
     <string name="support_copied">Đã sao chép thông tin lỗi vào bộ nhớ tạm</string>
     <string name="support_need_help">Cần hỗ trợ?</string>
-    <string name="support_action_report">Báo lỗi</string>
     <string name="support_close">Đóng</string>
 </resources>

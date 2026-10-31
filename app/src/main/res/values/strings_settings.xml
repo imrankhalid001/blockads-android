@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="whitelist_apps_empty">No apps installed</string>
     <string name="whitelist_tab_user">User Apps</string>
     <string name="whitelist_tab_system">System Apps</string>
@@ -425,11 +425,10 @@
 
     <!-- Rating & Review -->
     <string name="rate_app_title">Enjoying BlockAds?</string>
-    <string name="rate_app_desc">BlockAds has blocked over %1$d ads for you. If you find the app helpful, please take a moment to rate us 5 stars on Google Play!</string>
+    <string name="rate_app_desc" tools:ignore="PluralsCandidate">BlockAds has blocked over %1$d ads for you. If you find the app helpful, please take a moment to rate us 5 stars on Google Play!</string>
     <string name="rate_app_action_rate">Rate 5 Stars</string>
     <string name="rate_app_action_feedback">Send Feedback</string>
     <string name="rate_app_action_later">Maybe Later</string>
     <string name="about_rate_app">Rate on Google Play</string>
-    <string name="about_rate_app_desc">Support us with a 5-star review</string>
 </resources>
 

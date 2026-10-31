@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">过滤规则列表</string>
     <string name="stats_country_top_domains_title">%s 的热门域名</string>
     <string name="stats_country_top_domains_empty">未记录该国家/地区的域名查询</string>
+    <string name="log_unknown_app">未知</string>
 </resources>

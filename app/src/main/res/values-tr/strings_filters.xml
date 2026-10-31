@@ -115,7 +115,6 @@
     <string name="https_filtering_stopped">HTTPS filtreleme durduruldu</string>
     <string name="https_filtering_http3_title">HTTP/3 (QUIC) Filtrele</string>
     <string name="https_filtering_http3_desc">Maksimum reklam filtrelemesi için filtrelenebilir bağlantıları zorlamak amacıyla tarayıcı QUIC\'ini engelleyin. Bazı sayfaların kısmen yüklenmesine neden olabilir. Sayfalar tam olarak yüklenmiyorsa kapatın.</string>
-    <string name="https_filtering_root_install">Sertifikayı Root ile yükle</string>
     <string name="https_wizard_title">Sertifika Kurulumu</string>
     <string name="https_wizard_step_indicator_format">Adım %1$d / %2$d: %3$s</string>
     <string name="https_wizard_security_title">Güvenlik ve Gizlilik</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">Hedef Cihaz: %1$s</string>
     <string name="https_wizard_device_brand_generic">Android Cihazınız</string>
     <string name="https_wizard_install_instructions_title">Adım Adım Kılavuz</string>
-    <string name="https_wizard_root_detected_title">Root Erişimi Algılandı (Önerilen)</string>
-    <string name="https_wizard_root_detected_desc">Cihazınız root erişimine sahip. CA sertifikasını manuel yapılandırma olmadan otomatik olarak yükleyebilirsiniz.</string>
     <string name="https_wizard_checking_title">Sertifika doğrulanıyor…</string>
     <string name="https_wizard_checking_desc">Android güven deposunda BlockAds CA taranıyor…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA doğrulandı ve cihazınızın güven deposunda etkin. Gelişmiş HTTPS filtrelemesi kullanıma hazır!</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">Devam Et</string>
     <string name="https_wizard_prev">Geri</string>
     <string name="https_wizard_finish">Bitir ve Etkinleştir</string>
-    <string name="https_wizard_root_fast">Hızlı Kurulum</string>
-    <string name="https_wizard_root_module">Magisk Modülü</string>
     <string name="https_wizard_copy_filename">Dosya adını kopyala</string>
     <string name="https_wizard_filename_copied">Sertifika dosya adı panoya kopyalandı</string>
     <string name="https_wizard_verified_success">Sertifika doğrulandı ve kullanıma hazır!</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">Filtre Listesini Düzenle</string>
     <string name="filter_edit_url_dialog_title">Filtre URL sini Düzenle</string>
     <string name="https_filtering_proxy_vpn_conflict">Proxy &amp; VPN modu etkinken HTTPS filtreleme etkinleştirilemez</string>
+    <string name="https_filtering_cert_required_desc">Etkinleştirmek için CA sertifikasını yükleyin</string>
+    <string name="https_filtering_cert_not_installed_error">HTTPS filtrelemeyi etkinleştirmeden önce CA sertifikası yüklenmelidir</string>
+    <string name="filter_tag_all">Tümü</string>
+    <string name="filter_tag_create">Etiket Oluştur</string>
+    <string name="filter_tag_create_title">Sınıflandırma Etiketi Oluştur</string>
+    <string name="filter_tag_name_label">Etiket Adı</string>
+    <string name="filter_tag_name_placeholder">örn. Reklamlar, YouTube, Sosyal…</string>
+    <string name="filter_tag_section_title">Sınıflandırma / Etiket</string>
+    <string name="filter_tag_delete">Etiketi Sil</string>
+    <string name="filter_tag_delete_confirm">\"%1$s\" etiketi silinsin mi?</string>
+    <string name="filter_tag_empty">Bu etikete sahip henüz filtre yok</string>
+    <string name="filter_tag_quick_presets">Öneriler</string>
 </resources>

@@ -21,8 +21,8 @@ fun AdvancedSection(
     onSetRoutingMode: (Boolean) -> Unit,
     onNavigateToHttpsFiltering: () -> Unit,
     onNavigateToWireGuardImport: () -> Unit,
-    showVpnSetting: Boolean = true,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    showVpnSetting: Boolean = true
 ) {
     val dividerColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.08f)
 

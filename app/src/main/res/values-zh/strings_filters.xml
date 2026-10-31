@@ -115,7 +115,6 @@
     <string name="https_filtering_stopped">HTTPS 过滤已停止</string>
     <string name="https_filtering_http3_title">过滤 HTTP/3 (QUIC)</string>
     <string name="https_filtering_http3_desc">阻止浏览器 QUIC 以强制使用可过滤的连接，从而实现最大程度的广告过滤。可能会导致某些页面加载不完全。如果页面未完全加载，请关闭此选项。</string>
-    <string name="https_filtering_root_install">通过 Root 安装证书</string>
     <string name="https_wizard_title">证书配置</string>
     <string name="https_wizard_step_indicator_format">第 %1$d 步（共 %2$d 步）：%3$s</string>
     <string name="https_wizard_security_title">安全与隐私</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">目标设备：%1$s</string>
     <string name="https_wizard_device_brand_generic">您的 Android 设备</string>
     <string name="https_wizard_install_instructions_title">详细安装指南</string>
-    <string name="https_wizard_root_detected_title">检测到 Root 权限（推荐）</string>
-    <string name="https_wizard_root_detected_desc">您的设备已获得 Root 权限。您可以自动安装 CA 证书，无需手动操作。</string>
     <string name="https_wizard_checking_title">正在验证证书…</string>
     <string name="https_wizard_checking_desc">正在 Android 信任凭据存储中扫描 BlockAds CA…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA 证书已验证并在设备的信任凭据存储中生效。高级 HTTPS 过滤现已准备就绪！</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">继续</string>
     <string name="https_wizard_prev">返回</string>
     <string name="https_wizard_finish">完成并启用</string>
-    <string name="https_wizard_root_fast">快速安装</string>
-    <string name="https_wizard_root_module">Magisk 模块</string>
     <string name="https_wizard_copy_filename">复制文件名</string>
     <string name="https_wizard_filename_copied">证书文件名已复制到剪贴板</string>
     <string name="https_wizard_verified_success">证书已验证，可立即投入使用！</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">编辑过滤列表</string>
     <string name="filter_edit_url_dialog_title">编辑过滤规则 URL</string>
     <string name="https_filtering_proxy_vpn_conflict">代理与VPN模式处于活动状态时无法启用 HTTPS 过滤</string>
+    <string name="https_filtering_cert_required_desc">安装 CA 证书以启用</string>
+    <string name="https_filtering_cert_not_installed_error">启用 HTTPS 过滤前必须先安装 CA 证书</string>
+    <string name="filter_tag_all">全部</string>
+    <string name="filter_tag_create">创建标签</string>
+    <string name="filter_tag_create_title">创建分类标签</string>
+    <string name="filter_tag_name_label">标签名称</string>
+    <string name="filter_tag_name_placeholder">例如：广告、YouTube、社交…</string>
+    <string name="filter_tag_section_title">分类 / 标签</string>
+    <string name="filter_tag_delete">删除标签</string>
+    <string name="filter_tag_delete_confirm">确定删除标签\"%1$s\"吗？</string>
+    <string name="filter_tag_empty">暂无带有此标签的规则</string>
+    <string name="filter_tag_quick_presets">建议</string>
 </resources>

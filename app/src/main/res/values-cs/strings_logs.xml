@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">Seznam filtrů</string>
     <string name="stats_country_top_domains_title">Nejčastější domény v %s</string>
     <string name="stats_country_top_domains_empty">Pro tuto zemi nebyly zaznamenány žádné dotazy na domény</string>
+    <string name="log_unknown_app">Neznámé</string>
 </resources>

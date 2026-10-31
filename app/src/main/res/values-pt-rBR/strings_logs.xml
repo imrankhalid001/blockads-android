@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">Lista de filtros</string>
     <string name="stats_country_top_domains_title">Principais domínios em %s</string>
     <string name="stats_country_top_domains_empty">Nenhuma consulta de domínio registrada para este país</string>
+    <string name="log_unknown_app">Desconhecido</string>
 </resources>

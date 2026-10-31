@@ -365,4 +365,20 @@
     <string name="dns_custom_server_ip">عنوان الخادم</string>
     <string name="dns_custom_presets">إعدادات سريعة</string>
     <string name="dns_custom_active_badge">يستخدم DNS مخصص</string>
+    <string name="settings_category_advanced">خيارات متقدمة والبروكسي</string>
+    <string name="settings_category_advanced_desc">تصفية HTTPS، البروكسي وVPN، وضع Root</string>
+    <string name="settings_reset">إعادة ضبط الإعدادات</string>
+    <string name="settings_reset_confirm_message">هل أنت متأكد من رغبتك في إعادة ضبط جميع الإعدادات إلى الوضع الافتراضي؟ ستتم استعادة جميع تفضيلاتك المخصصة إلى إعداداتها الأصلية.</string>
+    <string name="settings_reset_success">تمت إعادة ضبط الإعدادات إلى الوضع الافتراضي</string>
+    <string name="settings_bottom_nav_secondary_tab">علامة تبويب التنقل الإضافية</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">اختر ما إذا كنت تريد إظهار الفلاتر أو VPN في شريط التنقل</string>
+    <string name="settings_bottom_nav_tab_auto">تلقائي (افتراضي)</string>
+    <string name="settings_bottom_nav_tab_filter">إعداد الفلاتر</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN والبروكسي</string>
+    <string name="rate_app_title">هل يعجبك تطبيق BlockAds؟</string>
+    <string name="rate_app_desc">حظر BlockAds أكثر من %1$d إعلان لك. إذا وجدت التطبيق مفيداً، يُرجى تقييمنا بـ 5 نجوم على Google Play!</string>
+    <string name="rate_app_action_rate">تقييم 5 نجوم</string>
+    <string name="rate_app_action_feedback">إرسال تعليقات</string>
+    <string name="rate_app_action_later">ربما لاحقاً</string>
+    <string name="about_rate_app">التقييم على Google Play</string>
 </resources>

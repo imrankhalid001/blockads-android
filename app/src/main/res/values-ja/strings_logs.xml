@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">フィルターリスト</string>
     <string name="stats_country_top_domains_title">%s の上位ドメイン</string>
     <string name="stats_country_top_domains_empty">この国のドメインクエリは記録されていません</string>
+    <string name="log_unknown_app">不明</string>
 </resources>

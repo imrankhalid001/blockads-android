@@ -115,7 +115,6 @@
     <string name="https_filtering_stopped">หยุดการกรอง HTTPS แล้ว</string>
     <string name="https_filtering_http3_title">กรอง HTTP/3 (QUIC)</string>
     <string name="https_filtering_http3_desc">บล็อก QUIC ของเบราว์เซอร์เพื่อบังคับการเชื่อมต่อที่กรองได้สำหรับการกรองโฆษณาสูงสุด อาจทำให้บางหน้าโหลดเพียงบางส่วน ปิดหากหน้าเว็บโหลดไม่สมบูรณ์</string>
-    <string name="https_filtering_root_install">ติดตั้งใบรับรองผ่าน Root</string>
     <string name="https_wizard_title">การตั้งค่าใบรับรอง</string>
     <string name="https_wizard_step_indicator_format">ขั้นตอนที่ %1$d จาก %2$d: %3$s</string>
     <string name="https_wizard_security_title">ความปลอดภัยและความเป็นส่วนตัว</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">อุปกรณ์เป้าหมาย: %1$s</string>
     <string name="https_wizard_device_brand_generic">อุปกรณ์ Android ของคุณ</string>
     <string name="https_wizard_install_instructions_title">คำแนะนำทีละขั้นตอน</string>
-    <string name="https_wizard_root_detected_title">ตรวจพบสิทธิ์ Root (แนะนำ)</string>
-    <string name="https_wizard_root_detected_desc">อุปกรณ์ของคุณมีสิทธิ์ root คุณสามารถติดตั้งใบรับรอง CA ได้โดยอัตโนมัติโดยไม่ต้องกำหนดค่าด้วยตนเอง</string>
     <string name="https_wizard_checking_title">กำลังตรวจสอบใบรับรอง…</string>
     <string name="https_wizard_checking_desc">กำลังสแกนที่เก็บที่เชื่อถือได้ของ Android สำหรับ BlockAds CA…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA ได้รับการยืนยันและเปิดใช้งานในที่เก็บที่เชื่อถือได้ของอุปกรณ์แล้ว การกรอง HTTPS ขั้นสูงพร้อมใช้งานแล้ว!</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">ต่อไป</string>
     <string name="https_wizard_prev">ย้อนกลับ</string>
     <string name="https_wizard_finish">เสร็จสิ้นและเปิดใช้งาน</string>
-    <string name="https_wizard_root_fast">ติดตั้งด่วน</string>
-    <string name="https_wizard_root_module">โมดูล Magisk</string>
     <string name="https_wizard_copy_filename">คัดลอกชื่อไฟล์</string>
     <string name="https_wizard_filename_copied">คัดลอกชื่อไฟล์ใบรับรองไปยังคลิปบอร์ดแล้ว</string>
     <string name="https_wizard_verified_success">ใบรับรองได้รับการยืนยันและพร้อมใช้งานแล้ว!</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">แก้ไขรายการตัวกรอง</string>
     <string name="filter_edit_url_dialog_title">แก้ไข URL ตัวกรอง</string>
     <string name="https_filtering_proxy_vpn_conflict">ไม่สามารถเปิดใช้งานการกรอง HTTPS ขณะที่โหมดพร็อกซี &amp; VPN ทำงานอยู่</string>
+    <string name="https_filtering_cert_required_desc">ติดตั้งใบรับรอง CA เพื่อเปิดใช้งาน</string>
+    <string name="https_filtering_cert_not_installed_error">ต้องติดตั้งใบรับรอง CA ก่อนเปิดใช้งานการกรอง HTTPS</string>
+    <string name="filter_tag_all">ทั้งหมด</string>
+    <string name="filter_tag_create">สร้างแท็ก</string>
+    <string name="filter_tag_create_title">สร้างแท็กหมวดหมู่</string>
+    <string name="filter_tag_name_label">ชื่อแท็ก</string>
+    <string name="filter_tag_name_placeholder">เช่น โฆษณา, YouTube, โซเชียล…</string>
+    <string name="filter_tag_section_title">หมวดหมู่ / แท็ก</string>
+    <string name="filter_tag_delete">ลบแท็ก</string>
+    <string name="filter_tag_delete_confirm">ลบแท็ก \"%1$s\" หรือไม่?</string>
+    <string name="filter_tag_empty">ยังไม่มีตัวกรองในแท็กนี้</string>
+    <string name="filter_tag_quick_presets">คำแนะนำ</string>
 </resources>

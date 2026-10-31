@@ -6,8 +6,6 @@
     <string name="cert_action_check_again">Verificar novamente</string>
     <string name="cert_action_reinstall">Reinstalar</string>
     <string name="cert_action_install">Instalar certificado</string>
-    <string name="cert_snackbar_user_store_success">Instalado com sucesso no armazenamento do usuário!</string>
-    <string name="cert_snackbar_magisk_module_success">Módulo Magisk gerado! Reinicie o aparelho para ativar.</string>
     <string name="device_step_open_settings">Abrir Configurações do sistema</string>
     <string name="device_step_samsung_security_privacy">Selecionar Segurança e privacidade</string>
     <string name="device_step_samsung_more_security">Rolar para baixo e selecionar Mais configurações de segurança</string>

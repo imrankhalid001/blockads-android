@@ -6,8 +6,6 @@
     <string name="cert_action_check_again">Zkontrolovat znovu</string>
     <string name="cert_action_reinstall">Přeinstalovat</string>
     <string name="cert_action_install">Nainstalovat certifikát</string>
-    <string name="cert_snackbar_user_store_success">Úspěšně nainstalováno do úložiště uživatele!</string>
-    <string name="cert_snackbar_magisk_module_success">Modul Magisk byl vygenerován! Pro aktivaci restartujte zařízení.</string>
     <string name="device_step_open_settings">Otevřete Nastavení systému</string>
     <string name="device_step_samsung_security_privacy">Vyberte Zabezpečení a soukromí</string>
     <string name="device_step_samsung_more_security">Přejděte dolů a vyberte Další nastavení zabezpečení</string>

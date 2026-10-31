@@ -115,7 +115,6 @@
     <string name="https_filtering_stopped">Pemfilteran HTTPS dihentikan</string>
     <string name="https_filtering_http3_title">Filter HTTP/3 (QUIC)</string>
     <string name="https_filtering_http3_desc">Blokir QUIC browser untuk memaksa koneksi yang dapat disaring agar penyaringan iklan maksimal. Dapat menyebabkan beberapa halaman hanya dimuat sebagian. Matikan jika halaman tidak dimuat sepenuhnya.</string>
-    <string name="https_filtering_root_install">Instal sertifikat via Root</string>
     <string name="https_wizard_title">Pengaturan Sertifikat</string>
     <string name="https_wizard_step_indicator_format">Langkah %1$d dari %2$d: %3$s</string>
     <string name="https_wizard_security_title">Keamanan &amp; Privasi</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">Perangkat Target: %1$s</string>
     <string name="https_wizard_device_brand_generic">Perangkat Android Anda</string>
     <string name="https_wizard_install_instructions_title">Panduan Langkah demi Langkah</string>
-    <string name="https_wizard_root_detected_title">Akses Root Terdeteksi (Disarankan)</string>
-    <string name="https_wizard_root_detected_desc">Perangkat Anda memiliki akses root. Anda dapat menginstal sertifikat CA secara otomatis tanpa konfigurasi manual.</string>
     <string name="https_wizard_checking_title">Memverifikasi Sertifikat…</string>
     <string name="https_wizard_checking_desc">Memindai penyimpanan tepercaya Android untuk BlockAds CA…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA telah diverifikasi dan aktif di penyimpanan tepercaya perangkat Anda. Pemfilteran HTTPS tingkat lanjut siap digunakan!</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">Lanjutkan</string>
     <string name="https_wizard_prev">Kembali</string>
     <string name="https_wizard_finish">Selesai &amp; Aktifkan</string>
-    <string name="https_wizard_root_fast">Instalasi Cepat</string>
-    <string name="https_wizard_root_module">Modul Magisk</string>
     <string name="https_wizard_copy_filename">Salin nama file</string>
     <string name="https_wizard_filename_copied">Nama file sertifikat disalin ke papan klip</string>
     <string name="https_wizard_verified_success">Sertifikat telah diverifikasi dan siap digunakan!</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">Edit Daftar Filter</string>
     <string name="filter_edit_url_dialog_title">Edit URL Filter</string>
     <string name="https_filtering_proxy_vpn_conflict">Tidak dapat mengaktifkan pemfilteran HTTPS saat mode Proksi &amp; VPN aktif</string>
+    <string name="https_filtering_cert_required_desc">Pasang sertifikat CA untuk mengaktifkan</string>
+    <string name="https_filtering_cert_not_installed_error">Sertifikat CA harus dipasang sebelum mengaktifkan penyaringan HTTPS</string>
+    <string name="filter_tag_all">Semua</string>
+    <string name="filter_tag_create">Buat Tag</string>
+    <string name="filter_tag_create_title">Buat Tag Klasifikasi</string>
+    <string name="filter_tag_name_label">Nama Tag</string>
+    <string name="filter_tag_name_placeholder">cth. Iklan, YouTube, Sosial…</string>
+    <string name="filter_tag_section_title">Klasifikasi / Tag</string>
+    <string name="filter_tag_delete">Hapus Tag</string>
+    <string name="filter_tag_delete_confirm">Hapus tag \"%1$s\"?</string>
+    <string name="filter_tag_empty">Belum ada filter dengan tag ini</string>
+    <string name="filter_tag_quick_presets">Saran</string>
 </resources>

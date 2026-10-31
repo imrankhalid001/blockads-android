@@ -9,8 +9,6 @@
     <string name="cert_action_install">Cài đặt chứng chỉ</string>
 
     <!-- Certificate Wizard ViewModel -->
-    <string name="cert_snackbar_user_store_success">Đã cài đặt thành công vào User Store!</string>
-    <string name="cert_snackbar_magisk_module_success">Đã tạo Magisk Module! Khởi động lại máy để kích hoạt đầy đủ.</string>
 
     <!-- Device Installation Steps (DeviceManager) -->
     <string name="device_step_open_settings">Mở Cài đặt hệ thống (Settings)</string>

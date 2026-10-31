@@ -115,7 +115,6 @@
     <string name="filter_compile_success_title">Сүзгі құрастырылды</string>
     <string name="filter_compile_failed_title">Сүзгіні құрастыру сәтсіз аяқталды</string>
     <string name="filter_compile_channel_name">Сүзгіні құрастыру</string>
-    <string name="https_filtering_root_install">Сертификатты Root арқылы орнату</string>
     <string name="https_wizard_title">Сертификатты баптау</string>
     <string name="https_wizard_step_indicator_format">Қадам %1$d / %2$d: %3$s</string>
     <string name="https_wizard_security_title">Қауіпсіздік және құпиялылық</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">Мақсатты құрылғы: %1$s</string>
     <string name="https_wizard_device_brand_generic">Android құрылғыңыз</string>
     <string name="https_wizard_install_instructions_title">Қадамдық нұсқаулық</string>
-    <string name="https_wizard_root_detected_title">Root рұқсаты анықталды (ұсынылады)</string>
-    <string name="https_wizard_root_detected_desc">Құрылғыңызда root рұқсаты бар. CA сертификатын қолмен баптаусыз автоматты түрде орнатуға болады.</string>
     <string name="https_wizard_checking_title">Сертификат тексерілуде…</string>
     <string name="https_wizard_checking_desc">BlockAds CA үшін Android сенімді қоймасы сканерленуде…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA тексерілді және құрылғыңыздың сенімді қоймасында белсенді. Кеңейтілген HTTPS сүзгісі дайын!</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">Жалғастыру</string>
     <string name="https_wizard_prev">Артқа</string>
     <string name="https_wizard_finish">Аяқтау және қосу</string>
-    <string name="https_wizard_root_fast">Жылдам орнату</string>
-    <string name="https_wizard_root_module">Magisk модулі</string>
     <string name="https_wizard_copy_filename">Файл атын көшіру</string>
     <string name="https_wizard_filename_copied">Сертификат файлының аты алмасу буферіне көшірілді</string>
     <string name="https_wizard_verified_success">Сертификат тексерілді және пайдалануға дайын!</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">Сүзгі тізімін өзгерту</string>
     <string name="filter_edit_url_dialog_title">Сүзгінің URL мекенжайын өзгерту</string>
     <string name="https_filtering_proxy_vpn_conflict">Proxy &amp; VPN режимі белсенді кезде HTTPS сүзгісін қосу мүмкін емес</string>
+    <string name="https_filtering_cert_required_desc">Қосу үшін CA сертификатын орнатыңыз</string>
+    <string name="https_filtering_cert_not_installed_error">HTTPS сүзгілеуін қосу алдында CA сертификаты орнатылуы керек</string>
+    <string name="filter_tag_all">Барлығы</string>
+    <string name="filter_tag_create">Тег жасау</string>
+    <string name="filter_tag_create_title">Жіктеу тегін жасау</string>
+    <string name="filter_tag_name_label">Тег атауы</string>
+    <string name="filter_tag_name_placeholder">мыс. Жарнама, YouTube, Әлеуметтік…</string>
+    <string name="filter_tag_section_title">Жіктеу / Тег</string>
+    <string name="filter_tag_delete">Тегті жою</string>
+    <string name="filter_tag_delete_confirm">\"%1$s\" тегі жойылсын ба?</string>
+    <string name="filter_tag_empty">Бұл тегі бар сүзгілер әлі жоқ</string>
+    <string name="filter_tag_quick_presets">Ұсыныстар</string>
 </resources>

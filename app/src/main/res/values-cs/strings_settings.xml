@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">Adresa serveru</string>
     <string name="dns_custom_presets">Rychlé předvolby</string>
     <string name="dns_custom_active_badge">Používá se vlastní DNS</string>
+    <string name="settings_category_advanced">Pokročilé &amp; Proxy</string>
+    <string name="settings_category_advanced_desc">Filtrování HTTPS, Proxy &amp; VPN, Režim Root</string>
+    <string name="settings_reset">Obnovit nastavení</string>
+    <string name="settings_reset_confirm_message">Opravdu chcete obnovit všechna nastavení na výchozí hodnoty? Vaše přizpůsobené předvolby budou vráceny do původního stavu.</string>
+    <string name="settings_reset_success">Nastavení byla obnovena na výchozí hodnoty</string>
+    <string name="settings_bottom_nav_secondary_tab">Sekundární navigační karta</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">Zvolte, zda se má na navigačním panelu zobrazovat Filtr nebo VPN</string>
+    <string name="settings_bottom_nav_tab_auto">Automaticky (výchozí)</string>
+    <string name="settings_bottom_nav_tab_filter">Nastavení filtrů</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN &amp; Proxy</string>
+    <string name="rate_app_title">Líbí se vám BlockAds?</string>
+    <string name="rate_app_desc">BlockAds pro vás zablokoval více než %1$d reklam. Pokud je pro vás aplikace užitečná, věnujte chvilku jejímu hodnocení 5 hvězdičkami na Google Play!</string>
+    <string name="rate_app_action_rate">Ohodnotit 5 hvězdičkami</string>
+    <string name="rate_app_action_feedback">Odeslat zpětnou vazbu</string>
+    <string name="rate_app_action_later">Možná později</string>
+    <string name="about_rate_app">Ohodnotit na Google Play</string>
 </resources>

@@ -123,7 +123,6 @@
     <string name="https_filtering_cert_not_installed">Certificate not installed</string>
     <string name="https_filtering_cert_checking">Checking…</string>
     <string name="https_filtering_cert_vpn_required">Tap \&quot;Verify Certificate\&quot; to check</string>
-    <string name="https_filtering_root_install">Install to System Store (Root)</string>
     <string name="edit_custom_filter">Edit Custom Filter</string>
     <string name="filter_name">Filter Name</string>
     <string name="filter_url_domain">Filter URL/Domain</string>
@@ -186,8 +185,6 @@
     <string name="https_wizard_device_brand_format">Target Device: %1$s</string>
     <string name="https_wizard_device_brand_generic">Your Android Device</string>
     <string name="https_wizard_install_instructions_title">Step-by-step Guide</string>
-    <string name="https_wizard_root_detected_title">Root Access Detected (Recommended)</string>
-    <string name="https_wizard_root_detected_desc">Your device has root access. You can install the CA certificate automatically without manual configuration.</string>
     <string name="https_wizard_checking_title">Verifying Certificate…</string>
     <string name="https_wizard_checking_desc">Scanning the Android trust store for BlockAds CA…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA is verified and active in your device\'s trust store. Advanced HTTPS filtering is ready to go!</string>
@@ -202,8 +199,6 @@
     <string name="https_wizard_next">Continue</string>
     <string name="https_wizard_prev">Back</string>
     <string name="https_wizard_finish">Finish &amp; Enable</string>
-    <string name="https_wizard_root_fast">Quick Install</string>
-    <string name="https_wizard_root_module">Magisk Module</string>
     <string name="https_wizard_copy_filename">Copy filename</string>
     <string name="https_wizard_filename_copied">Certificate filename copied to clipboard</string>
     <string name="https_wizard_verified_success">Certificate is verified and ready to use!</string>

@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">ที่อยู่เซิร์ฟเวอร์</string>
     <string name="dns_custom_presets">ค่าที่ตั้งไว้ล่วงหน้าด่วน</string>
     <string name="dns_custom_active_badge">กำลังใช้ DNS ที่กำหนดเอง</string>
+    <string name="settings_category_advanced">ขั้นสูงและพร็อกซี</string>
+    <string name="settings_category_advanced_desc">การกรอง HTTPS, พร็อกซีและ VPN, โหมด Root</string>
+    <string name="settings_reset">รีเซ็ตการตั้งค่า</string>
+    <string name="settings_reset_confirm_message">คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตการตั้งค่าทั้งหมดเป็นค่าเริ่มต้น การตั้งค่าที่คุณกำหนดเองจะถูกกู้คืนกลับเป็นค่าเริ่มต้นเดิม</string>
+    <string name="settings_reset_success">รีเซ็ตการตั้งค่าเป็นค่าเริ่มต้นเรียบร้อยแล้ว</string>
+    <string name="settings_bottom_nav_secondary_tab">แท็บการนำทางเพิ่มเติม</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">เลือกว่าจะแสดงตัวกรองหรือ VPN ในแถบการนำทาง</string>
+    <string name="settings_bottom_nav_tab_auto">อัตโนมัติ (ค่าเริ่มต้น)</string>
+    <string name="settings_bottom_nav_tab_filter">ตั้งค่าตัวกรอง</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN และพร็อกซี</string>
+    <string name="rate_app_title">ชอบ BlockAds ไหม?</string>
+    <string name="rate_app_desc">BlockAds บล็อกโฆษณาไปแล้วมากกว่า %1$d รายการ หากแอปนี้มีประโยชน์ โปรดสละเวลาสักครู่เพื่อให้คะแนนเรา 5 ดาวบน Google Play!</string>
+    <string name="rate_app_action_rate">ให้คะแนน 5 ดาว</string>
+    <string name="rate_app_action_feedback">ส่งความคิดเห็น</string>
+    <string name="rate_app_action_later">ไว้ทีหลัง</string>
+    <string name="about_rate_app">ให้คะแนนบน Google Play</string>
 </resources>

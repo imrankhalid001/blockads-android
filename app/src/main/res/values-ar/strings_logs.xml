@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">قائمة التصفية</string>
     <string name="stats_country_top_domains_title">أهم النطاقات في %s</string>
     <string name="stats_country_top_domains_empty">لم يتم تسجيل أي استعلامات نطاق لهذا البلد</string>
+    <string name="log_unknown_app">غير معروف</string>
 </resources>

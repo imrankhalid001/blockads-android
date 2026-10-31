@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">サーバーアドレス</string>
     <string name="dns_custom_presets">クイックプリセット</string>
     <string name="dns_custom_active_badge">カスタム DNS を使用中</string>
+    <string name="settings_category_advanced">詳細 &amp; プロキシ</string>
+    <string name="settings_category_advanced_desc">HTTPSフィルタリング、プロキシ &amp; VPN、Rootモード</string>
+    <string name="settings_reset">設定をリセット</string>
+    <string name="settings_reset_confirm_message">すべての設定を初期状態に戻してもよろしいですか？カスタマイズした設定内容は元の初期値に戻ります。</string>
+    <string name="settings_reset_success">設定を初期状態に戻しました</string>
+    <string name="settings_bottom_nav_secondary_tab">セカンダリ ナビゲーション タブ</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">ナビゲーションバーにフィルターまたはVPNのどちらを表示するか選択します</string>
+    <string name="settings_bottom_nav_tab_auto">自動（デフォルト）</string>
+    <string name="settings_bottom_nav_tab_filter">フィルター設定</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN &amp; プロキシ</string>
+    <string name="rate_app_title">BlockAds を気に入っていただけましたか？</string>
+    <string name="rate_app_desc">BlockAds は %1$d 件以上の広告をブロックしました。アプリが役立ちましたら、ぜひ Google Play での 5 つ星評価をお願いします！</string>
+    <string name="rate_app_action_rate">5つ星で評価</string>
+    <string name="rate_app_action_feedback">フィードバックを送信</string>
+    <string name="rate_app_action_later">後で</string>
+    <string name="about_rate_app">Google Play で評価</string>
 </resources>

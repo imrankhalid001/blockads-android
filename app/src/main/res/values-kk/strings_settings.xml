@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">Сервер мекенжайы</string>
     <string name="dns_custom_presets">Жылдам үлгілер</string>
     <string name="dns_custom_active_badge">Жеке DNS қолданылуда</string>
+    <string name="settings_category_advanced">Кеңейтілген және прокси</string>
+    <string name="settings_category_advanced_desc">HTTPS сүзгілеуі, Прокси және VPN, Root режимі</string>
+    <string name="settings_reset">Параметрлерді қалпына келтіру</string>
+    <string name="settings_reset_confirm_message">Барлық параметрлерді әдепкі күйге қайтарғыңыз келетініне сенімдісіз бе? Барлық баптауларыңыз бастапқы күйіне қайтарылады.</string>
+    <string name="settings_reset_success">Параметрлер әдепкі мәндерге қайтарылды</string>
+    <string name="settings_bottom_nav_secondary_tab">Қосымша навигация қойындысы</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">Навигация тақтасында Сүзгі немесе VPN көрсетуді таңдаңыз</string>
+    <string name="settings_bottom_nav_tab_auto">Автоматты (Әдепкі)</string>
+    <string name="settings_bottom_nav_tab_filter">Сүзгіні баптау</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN және прокси</string>
+    <string name="rate_app_title">BlockAds ұнады ма?</string>
+    <string name="rate_app_desc">BlockAds сіз үшін %1$d астам жарнаманы бұғаттады. Егер қолданба пайдалы болса, Google Play-де 5 жұлдызды бағалауға уақыт бөліңізші!</string>
+    <string name="rate_app_action_rate">5 жұлдыз қою</string>
+    <string name="rate_app_action_feedback">Пікір жіберу</string>
+    <string name="rate_app_action_later">Кейінірек</string>
+    <string name="about_rate_app">Google Play-де бағалау</string>
 </resources>

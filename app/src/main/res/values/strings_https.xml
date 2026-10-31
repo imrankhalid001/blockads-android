@@ -9,8 +9,6 @@
     <string name="cert_action_install">Install certificate</string>
 
     <!-- Certificate Wizard ViewModel -->
-    <string name="cert_snackbar_user_store_success">Successfully installed into User Store!</string>
-    <string name="cert_snackbar_magisk_module_success">Magisk module generated! Reboot device to fully activate.</string>
 
     <!-- Device Installation Steps (DeviceManager) -->
     <string name="device_step_open_settings">Open system Settings</string>

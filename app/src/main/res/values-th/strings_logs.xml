@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">รายการตัวกรอง</string>
     <string name="stats_country_top_domains_title">โดเมนยอดนิยมใน %s</string>
     <string name="stats_country_top_domains_empty">ไม่มีการบันทึกคำขอโดเมนสำหรับประเทศนี้</string>
+    <string name="log_unknown_app">ไม่ระบุ</string>
 </resources>

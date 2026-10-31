@@ -6,8 +6,6 @@
     <string name="cert_action_check_again">Tekrar kontrol et</string>
     <string name="cert_action_reinstall">Yeniden yükle</string>
     <string name="cert_action_install">Sertifikayı yükle</string>
-    <string name="cert_snackbar_user_store_success">Kullanıcı deposuna başarıyla yüklendi!</string>
-    <string name="cert_snackbar_magisk_module_success">Magisk modülü oluşturuldu! Etkinleştirmek için cihazı yeniden başlatın.</string>
     <string name="device_step_open_settings">Sistem Ayarlarını açın</string>
     <string name="device_step_samsung_security_privacy">Güvenlik ve gizlilik seçeneğini belirleyin</string>
     <string name="device_step_samsung_more_security">Aşağı kaydırın ve Diğer güvenlik ayarları\'nı seçin</string>

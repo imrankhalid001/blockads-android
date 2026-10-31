@@ -115,7 +115,6 @@
     <string name="https_filtering_stopped">توقفت تصفية HTTPS</string>
     <string name="https_filtering_http3_title">تصفية HTTP/3 (QUIC)</string>
     <string name="https_filtering_http3_desc">حظر QUIC في المتصفح لفرض اتصالات قابلة للتصفية للحصول على أقصى تصفية للإعلانات. قد يتسبب في تحميل بعض الصفحات جزئياً. أوقفه إذا لم يتم تحميل الصفحات بالكامل.</string>
-    <string name="https_filtering_root_install">تثبيت الشهادة عبر Root</string>
     <string name="https_wizard_title">إعداد الشهادة</string>
     <string name="https_wizard_step_indicator_format">الخطوة %1$d من %2$d: %3$s</string>
     <string name="https_wizard_security_title">الأمان والخصوصية</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">الجهاز المستهدف: %1$s</string>
     <string name="https_wizard_device_brand_generic">جهاز Android الخاص بك</string>
     <string name="https_wizard_install_instructions_title">دليل خطوة بخطوة</string>
-    <string name="https_wizard_root_detected_title">تم اكتشاف صلاحيات Root (مستحسن)</string>
-    <string name="https_wizard_root_detected_desc">جهازك به صلاحيات Root. يمكنك تثبيت شهادة CA تلقائياً دون تكوين يدوي.</string>
     <string name="https_wizard_checking_title">جارٍ التحقق من الشهادة…</string>
     <string name="https_wizard_checking_desc">جارٍ فحص مخزن الثقة في Android بحثاً عن BlockAds CA…</string>
     <string name="https_wizard_installed_desc">تم التحقق من BlockAds Root CA ونشط في مخزن الثقة بجهازك. تصفية HTTPS المتقدمة جاهزة للاستخدام!</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">متابعة</string>
     <string name="https_wizard_prev">رجوع</string>
     <string name="https_wizard_finish">إنهاء وتمكين</string>
-    <string name="https_wizard_root_fast">تثبيت سريع</string>
-    <string name="https_wizard_root_module">وحدة Magisk</string>
     <string name="https_wizard_copy_filename">نسخ اسم الملف</string>
     <string name="https_wizard_filename_copied">تم نسخ اسم ملف الشهادة إلى الحافظة</string>
     <string name="https_wizard_verified_success">تم التحقق من الشهادة وهي جاهزة للاستخدام!</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">تعديل قائمة التصفية</string>
     <string name="filter_edit_url_dialog_title">تعديل رابط التصفية</string>
     <string name="https_filtering_proxy_vpn_conflict">لا يمكن تفعيل تصفية HTTPS أثناء نشاط وضع Proxy &amp; VPN</string>
+    <string name="https_filtering_cert_required_desc">تثبيت شهادة CA للتفعيل</string>
+    <string name="https_filtering_cert_not_installed_error">يجب تثبيت شهادة CA قبل تفعيل تصفية HTTPS</string>
+    <string name="filter_tag_all">الكل</string>
+    <string name="filter_tag_create">إنشاء علامة</string>
+    <string name="filter_tag_create_title">إنشاء علامة تصنيف</string>
+    <string name="filter_tag_name_label">اسم العلامة</string>
+    <string name="filter_tag_name_placeholder">مثال: الإعلانات، YouTube، التواصل الاجتماعي…</string>
+    <string name="filter_tag_section_title">التصنيف / العلامة</string>
+    <string name="filter_tag_delete">حذف العلامة</string>
+    <string name="filter_tag_delete_confirm">حذف العلامة \"%1$s\"؟</string>
+    <string name="filter_tag_empty">لا توجد فلاتر بهذه العلامة حتى الآن</string>
+    <string name="filter_tag_quick_presets">اقتراحات</string>
 </resources>

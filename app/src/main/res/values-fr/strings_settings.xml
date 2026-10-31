@@ -364,4 +364,20 @@
     <string name="dns_custom_server_ip">Adresse du serveur</string>
     <string name="dns_custom_presets">Préréglages rapides</string>
     <string name="dns_custom_active_badge">DNS personnalisé actif</string>
+    <string name="settings_category_advanced">Avancé &amp; Proxy</string>
+    <string name="settings_category_advanced_desc">Filtrage HTTPS, Proxy &amp; VPN, Mode Root</string>
+    <string name="settings_reset">Réinitialiser les paramètres</string>
+    <string name="settings_reset_confirm_message">Voulez-vous vraiment réinitialiser tous les paramètres par défaut ? Vos préférences personnalisées seront restaurées à leur état initial.</string>
+    <string name="settings_reset_success">Les paramètres ont été réinitialisés par défaut</string>
+    <string name="settings_bottom_nav_secondary_tab">Onglet de navigation secondaire</string>
+    <string name="settings_bottom_nav_secondary_tab_desc">Choisissez d\'afficher Filtres ou VPN dans la barre de navigation</string>
+    <string name="settings_bottom_nav_tab_auto">Automatique (Par défaut)</string>
+    <string name="settings_bottom_nav_tab_filter">Configuration des filtres</string>
+    <string name="settings_bottom_nav_tab_vpn">VPN &amp; Proxy</string>
+    <string name="rate_app_title">Vous appréciez BlockAds ?</string>
+    <string name="rate_app_desc">BlockAds a bloqué plus de %1$d publicités pour vous. Si vous trouvez l\'application utile, prenez un instant pour nous attribuer 5 étoiles sur Google Play !</string>
+    <string name="rate_app_action_rate">Noter 5 étoiles</string>
+    <string name="rate_app_action_feedback">Envoyer des commentaires</string>
+    <string name="rate_app_action_later">Plus tard</string>
+    <string name="about_rate_app">Noter sur Google Play</string>
 </resources>

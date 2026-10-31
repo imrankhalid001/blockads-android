@@ -6,8 +6,6 @@
     <string name="cert_action_check_again">再確認</string>
     <string name="cert_action_reinstall">再インストール</string>
     <string name="cert_action_install">証明書をインストール</string>
-    <string name="cert_snackbar_user_store_success">ユーザー証明書ストアに正常にインストールされました！</string>
-    <string name="cert_snackbar_magisk_module_success">Magiskモジュールが生成されました！デバイスを再起動して有効化してください。</string>
     <string name="device_step_open_settings">システム設定を開く</string>
     <string name="device_step_samsung_security_privacy">「セキュリティとプライバシー」を選択</string>
     <string name="device_step_samsung_more_security">下へスクロールして「その他のセキュリティ設定」を選択</string>

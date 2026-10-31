@@ -6,8 +6,6 @@
     <string name="cert_action_check_again">تحقق مجدداً</string>
     <string name="cert_action_reinstall">إعادة التثبيت</string>
     <string name="cert_action_install">تثبيت الشهادة</string>
-    <string name="cert_snackbar_user_store_success">تم التثبيت بنجاح في متجر المستخدم!</string>
-    <string name="cert_snackbar_magisk_module_success">تم إنشاء وحدة Magisk! أعد تشغيل الجهاز للتفعيل الكامل.</string>
     <string name="device_step_open_settings">افتح إعدادات النظام</string>
     <string name="device_step_samsung_security_privacy">اختر الأمان والخصوصية</string>
     <string name="device_step_samsung_more_security">مرر لأسفل واختر المزيد من ضبط الأمان</string>

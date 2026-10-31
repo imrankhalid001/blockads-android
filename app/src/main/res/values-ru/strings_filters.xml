@@ -115,7 +115,6 @@
     <string name="https_filtering_stopped">HTTPS-фильтрация остановлена</string>
     <string name="https_filtering_http3_title">Фильтровать HTTP/3 (QUIC)</string>
     <string name="https_filtering_http3_desc">Блокировать QUIC в браузере для принудительного использования фильтруемых соединений для максимальной фильтрации рекламы. Может привести к частичной загрузке некоторых страниц. Отключите, если страницы загружаются не полностью.</string>
-    <string name="https_filtering_root_install">Установить сертификат через Root</string>
     <string name="https_wizard_title">Настройка сертификата</string>
     <string name="https_wizard_step_indicator_format">Шаг %1$d из %2$d: %3$s</string>
     <string name="https_wizard_security_title">Безопасность и конфиденциальность</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">Целевое устройство: %1$s</string>
     <string name="https_wizard_device_brand_generic">Ваше устройство Android</string>
     <string name="https_wizard_install_instructions_title">Пошаговое руководство</string>
-    <string name="https_wizard_root_detected_title">Обнаружен Root-доступ (рекомендуется)</string>
-    <string name="https_wizard_root_detected_desc">На вашем устройстве есть root-доступ. Вы можете установить сертификат CA автоматически без ручной настройки.</string>
     <string name="https_wizard_checking_title">Проверка сертификата…</string>
     <string name="https_wizard_checking_desc">Сканирование хранилища доверенных сертификатов Android для BlockAds CA…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA проверен и активен в хранилище доверенных сертификатов вашего устройства. Продвинутая фильтрация HTTPS готова к работе!</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">Продолжить</string>
     <string name="https_wizard_prev">Назад</string>
     <string name="https_wizard_finish">Завершить и включить</string>
-    <string name="https_wizard_root_fast">Быстрая установка</string>
-    <string name="https_wizard_root_module">Модуль Magisk</string>
     <string name="https_wizard_copy_filename">Копировать имя файла</string>
     <string name="https_wizard_filename_copied">Имя файла сертификата скопировано в буфер обмена</string>
     <string name="https_wizard_verified_success">Сертификат проверен и готов к использованию!</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">Изменить список фильтров</string>
     <string name="filter_edit_url_dialog_title">Изменить URL фильтра</string>
     <string name="https_filtering_proxy_vpn_conflict">Невозможно включить HTTPS-фильтрацию, пока активен режим Прокси и VPN</string>
+    <string name="https_filtering_cert_required_desc">Установите сертификат CA для включения</string>
+    <string name="https_filtering_cert_not_installed_error">Сертификат CA должен быть установлен перед включением HTTPS-фильтрации</string>
+    <string name="filter_tag_all">Все</string>
+    <string name="filter_tag_create">Создать тег</string>
+    <string name="filter_tag_create_title">Создать тег классификации</string>
+    <string name="filter_tag_name_label">Имя тега</string>
+    <string name="filter_tag_name_placeholder">напр. Реклама, YouTube, Соцсети…</string>
+    <string name="filter_tag_section_title">Классификация / Тег</string>
+    <string name="filter_tag_delete">Удалить тег</string>
+    <string name="filter_tag_delete_confirm">Удалить тег \"%1$s\"?</string>
+    <string name="filter_tag_empty">Фильтров с этим тегом пока нет</string>
+    <string name="filter_tag_quick_presets">Предложения</string>
 </resources>

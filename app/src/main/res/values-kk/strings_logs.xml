@@ -69,4 +69,5 @@
     <string name="stats_block_reason_filter_list">Сүзгілер тізімі</string>
     <string name="stats_country_top_domains_title">%s бойынша үздік домендер</string>
     <string name="stats_country_top_domains_empty">Бұл ел үшін домендік сұраулар жазылмаған</string>
+    <string name="log_unknown_app">Белгісіз</string>
 </resources>

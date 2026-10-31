@@ -105,7 +105,6 @@
     <string name="https_filtering_cert_not_installed">Chưa cài đặt chứng chỉ</string>
     <string name="https_filtering_cert_checking">Đang kiểm tra…</string>
     <string name="https_filtering_cert_vpn_required">Nhấn \"Xác minh chứng chỉ\" để kiểm tra</string>
-    <string name="https_filtering_root_install">Cài vào System Store (Root)</string>
     <string name="https_filtering_browser_section">Lựa chọn trình duyệt</string>
     <string name="https_filtering_browser_desc">Chọn trình duyệt để áp dụng lọc quảng cáo. Chỉ các ứng dụng được chọn mới được lọc.</string>
     <string name="https_filtering_settings_desc">Ẩn quảng cáo trực quan trong trình duyệt</string>
@@ -185,8 +184,6 @@
     <string name="https_wizard_device_brand_format">Thiết bị nhận diện: %1$s</string>
     <string name="https_wizard_device_brand_generic">Thiết bị Android của bạn</string>
     <string name="https_wizard_install_instructions_title">Các bước thực hiện</string>
-    <string name="https_wizard_root_detected_title">Phát hiện thiết bị đã Root (Khuyên dùng)</string>
-    <string name="https_wizard_root_detected_desc">Thiết bị của bạn đã có quyền Root. Bạn có thể cài đặt trực tiếp vào hệ thống mà không cần thao tác thủ công.</string>
     <string name="https_wizard_checking_title">Đang kiểm tra chứng chỉ…</string>
     <string name="https_wizard_checking_desc">Đang quét kho chứng chỉ tin cậy của Android…</string>
     <string name="https_wizard_installed_desc">Chứng chỉ BlockAds Root CA đã được phát hiện trong kho tin cậy của thiết bị. Lọc HTTPS đã sẵn sàng hoạt động!</string>
@@ -201,8 +198,6 @@
     <string name="https_wizard_next">Tiếp tục</string>
     <string name="https_wizard_prev">Quay lại</string>
     <string name="https_wizard_finish">Hoàn tất &amp; Bật lọc HTTPS</string>
-    <string name="https_wizard_root_fast">Cài đặt nhanh</string>
-    <string name="https_wizard_root_module">Magisk Module</string>
     <string name="https_wizard_copy_filename">Sao chép tên file</string>
     <string name="https_wizard_filename_copied">Đã sao chép tên file chứng chỉ vào bộ nhớ tạm</string>
     <string name="https_wizard_verified_success">Chứng chỉ đã được cài đặt và sẵn sàng hoạt động!</string>

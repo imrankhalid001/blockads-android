@@ -6,8 +6,6 @@
     <string name="cert_action_check_again">다시 확인</string>
     <string name="cert_action_reinstall">재설치</string>
     <string name="cert_action_install">인증서 설치</string>
-    <string name="cert_snackbar_user_store_success">사용자 인증서 저장소에 성공적으로 설치되었습니다!</string>
-    <string name="cert_snackbar_magisk_module_success">Magisk 모듈이 생성되었습니다! 기기를 재부팅하여 활성화하세요.</string>
     <string name="device_step_open_settings">시스템 설정 열기</string>
     <string name="device_step_samsung_security_privacy">\'보안 및 개인정보 보호\' 선택</string>
     <string name="device_step_samsung_more_security">아래로 스크롤하여 \'기타 보안 설정\' 선택</string>

@@ -118,7 +118,7 @@
         errorLine2="                             ~~~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/utils/WireGuardConfigParser.kt"
-            line="282"
+            line="324"
             column="30"/>
     </issue>
 
@@ -129,7 +129,7 @@
         errorLine2="                                          ~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/utils/WireGuardConfigParser.kt"
-            line="282"
+            line="324"
             column="43"/>
     </issue>
 
@@ -140,7 +140,7 @@
         errorLine2="                                 ~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/utils/WireGuardConfigParser.kt"
-            line="285"
+            line="327"
             column="34"/>
     </issue>
 
@@ -151,7 +151,7 @@
         errorLine2="                                                 ~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/utils/WireGuardConfigParser.kt"
-            line="285"
+            line="327"
             column="50"/>
     </issue>
 
@@ -162,7 +162,7 @@
         errorLine2="                                     ~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/utils/WireGuardConfigParser.kt"
-            line="288"
+            line="330"
             column="38"/>
     </issue>
 
@@ -173,7 +173,7 @@
         errorLine2="                                                      ~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/utils/WireGuardConfigParser.kt"
-            line="288"
+            line="330"
             column="55"/>
     </issue>
 
@@ -294,7 +294,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/utils/LocaleHelper.kt"
-            line="44"
+            line="74"
             column="9"/>
     </issue>
 
@@ -366,23 +366,12 @@
 
     <issue
         id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.application than 8.13.2 is available: 9.4.1"
+        message="A newer version of com.android.application than 8.13.2 is available: 9.5.0"
         errorLine1="agp = &quot;8.13.2&quot;"
         errorLine2="      ~~~~~~~~">
         <location
             file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
             line="2"
-            column="7"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of com.google.devtools.ksp than 2.3.6 is available: 2.3.12"
-        errorLine1="ksp = &quot;2.3.6&quot;"
-        errorLine2="      ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="5"
             column="7"/>
     </issue>
 
@@ -472,6 +461,17 @@
             file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
             line="13"
             column="8"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.datastore:datastore-preferences than 1.2.1 is available: 1.3.0"
+        errorLine1="datastorePreferences = &quot;1.2.1&quot;"
+        errorLine2="                       ~~~~~~~">
+        <location
+            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
+            line="14"
+            column="24"/>
     </issue>
 
     <issue
@@ -597,7 +597,7 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-cio than 3.4.3 is available: 3.6.0"
+        message="A newer version of io.ktor:ktor-client-cio than 3.4.3 is available: 3.6.1"
         errorLine1="ktor = &quot;3.4.3&quot;"
         errorLine2="       ~~~~~~~">
         <location
@@ -608,7 +608,7 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-core than 3.4.3 is available: 3.6.0"
+        message="A newer version of io.ktor:ktor-client-core than 3.4.3 is available: 3.6.1"
         errorLine1="ktor = &quot;3.4.3&quot;"
         errorLine2="       ~~~~~~~">
         <location
@@ -619,7 +619,7 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-logging than 3.4.3 is available: 3.6.0"
+        message="A newer version of io.ktor:ktor-client-logging than 3.4.3 is available: 3.6.1"
         errorLine1="ktor = &quot;3.4.3&quot;"
         errorLine2="       ~~~~~~~">
         <location
@@ -630,7 +630,7 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-mock than 3.4.3 is available: 3.6.0"
+        message="A newer version of io.ktor:ktor-client-mock than 3.4.3 is available: 3.6.1"
         errorLine1="ktor = &quot;3.4.3&quot;"
         errorLine2="       ~~~~~~~">
         <location
@@ -641,7 +641,7 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-websockets than 3.4.3 is available: 3.6.0"
+        message="A newer version of io.ktor:ktor-client-websockets than 3.4.3 is available: 3.6.1"
         errorLine1="ktor = &quot;3.4.3&quot;"
         errorLine2="       ~~~~~~~">
         <location
@@ -674,7 +674,7 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of com.squareup.okhttp3:mockwebserver than 4.12.0 is available: 5.5.0"
+        message="A newer version of com.squareup.okhttp3:mockwebserver than 4.12.0 is available: 5.5.1"
         errorLine1="okhttp = &quot;4.12.0&quot;"
         errorLine2="         ~~~~~~~~">
         <location
@@ -685,7 +685,7 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of com.squareup.okhttp3:okhttp-tls than 4.12.0 is available: 5.5.0"
+        message="A newer version of com.squareup.okhttp3:okhttp-tls than 4.12.0 is available: 5.5.1"
         errorLine1="okhttp = &quot;4.12.0&quot;"
         errorLine2="         ~~~~~~~~">
         <location
@@ -718,7 +718,7 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.sentry.android.gradle than 6.6.0 is available: 6.24.0"
+        message="A newer version of io.sentry.android.gradle than 6.6.0 is available: 6.25.0"
         errorLine1="sentry = &quot;6.6.0&quot;"
         errorLine2="         ~~~~~~~">
         <location
@@ -729,7 +729,7 @@
 
     <issue
         id="NewerVersionAvailable"
-        message="A newer version of io.sentry:sentry-android than 8.41.0 is available: 8.61.0"
+        message="A newer version of io.sentry:sentry-android than 8.41.0 is available: 8.62.0"
         errorLine1="sentry-android = &quot;8.41.0&quot;"
         errorLine2="                 ~~~~~~~~">
         <location
@@ -833,7 +833,7 @@
         errorLine2="    ~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/ui/logs/component/DomainDetailBottomSheet.kt"
-            line="62"
+            line="63"
             column="5"/>
     </issue>
 
@@ -910,7 +910,7 @@
         errorLine2="    ~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/ui/httpsfiltering/HttpsFilteringScreen.kt"
-            line="62"
+            line="66"
             column="5"/>
     </issue>
 
@@ -924,7 +924,6 @@
             line="52"
             column="5"/>
     </issue>
-
 
     <issue
         id="ModifierParameter"
@@ -944,7 +943,7 @@
         errorLine2="    ~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/ui/proxyvpn/ProxyVpnScreen.kt"
-            line="85"
+            line="83"
             column="5"/>
     </issue>
 
@@ -988,62 +987,9 @@
         errorLine2="    ~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/ui/proxyvpn/component/WireGuardTabContent.kt"
-            line="63"
+            line="70"
             column="5"/>
     </issue>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <issue
         id="Typos"
@@ -1052,24 +998,9 @@
         errorLine2="                                                                 ~~~~~~~~~~~">
         <location
             file="src/main/res/values-it/strings_filters.xml"
-            line="141"
+            line="140"
             column="66"/>
     </issue>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <issue
         id="LogNotTimber"
@@ -1172,23 +1103,12 @@
 
     <issue
         id="PluralsCandidate"
-        message="Formatting %d followed by words (&quot;ffline&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;filter_build_mode_local_desc&quot;>Compiled on device via Go engine (DNS rules only, 100% offline)&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings_filters.xml"
-            line="152"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;filter&quot;): This should probably be a plural rather than a string"
         errorLine1="    &lt;string name=&quot;filter_merge_badge&quot;>Merging %1$d filter lists into one&lt;/string>"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings_filters.xml"
-            line="155"
+            line="157"
             column="5"/>
     </issue>
 
@@ -1232,7 +1152,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings_settings.xml"
-            line="153"
+            line="158"
             column="5"/>
     </issue>
 
@@ -1243,7 +1163,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings_settings.xml"
-            line="154"
+            line="159"
             column="5"/>
     </issue>
 
@@ -1254,7 +1174,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings_settings.xml"
-            line="173"
+            line="178"
             column="5"/>
     </issue>
 
@@ -1268,20 +1188,6 @@
             line="39"
             column="5"/>
     </issue>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <issue
         id="ExportedReceiver"
@@ -1356,7 +1262,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/ui/home/HomeViewModel.kt"
-            line="56"
+            line="57"
             column="5"/>
     </issue>
 
@@ -1502,19 +1408,6 @@
             line="2"
             column="1"/>
     </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.ic_settings_filter_lists` appears to be unused"
-        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_settings_filter_lists.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-
 
     <issue
         id="TypographyEllipsis"
@@ -1666,7 +1559,7 @@
         errorLine2="                                            ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-vi/strings_settings.xml"
-            line="231"
+            line="236"
             column="45"/>
     </issue>
 
@@ -1875,7 +1768,7 @@
         errorLine2="                                            ~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings_settings.xml"
-            line="278"
+            line="283"
             column="45"/>
     </issue>
 
@@ -1886,7 +1779,7 @@
         errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-vi/strings_settings.xml"
-            line="281"
+            line="286"
             column="40"/>
     </issue>
 
@@ -1897,7 +1790,7 @@
         errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings_settings.xml"
-            line="309"
+            line="314"
             column="40"/>
     </issue>
 
@@ -2343,7 +2236,7 @@
         errorLine2="                                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pwhs/blockads/ui/httpsfiltering/HttpsFilteringViewModel.kt"
-            line="442"
+            line="326"
             column="56"/>
     </issue>
 

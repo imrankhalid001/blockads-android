@@ -115,7 +115,6 @@
     <string name="https_filtering_stopped">HTTPS filtrování zastaveno</string>
     <string name="https_filtering_http3_title">Filtrovat HTTP/3 (QUIC)</string>
     <string name="https_filtering_http3_desc">Blokovat QUIC v prohlížeči pro vynucení filtrovatelných připojení pro maximální filtrování reklam. Může způsobit částečné načítání některých stránek. Vypněte, pokud se stránky nenačítají úplně.</string>
-    <string name="https_filtering_root_install">Instalovat certifikát přes Root</string>
     <string name="https_wizard_title">Nastavení certifikátu</string>
     <string name="https_wizard_step_indicator_format">Krok %1$d z %2$d: %3$s</string>
     <string name="https_wizard_security_title">Zabezpečení a soukromí</string>
@@ -139,8 +138,6 @@
     <string name="https_wizard_device_brand_format">Cílové zařízení: %1$s</string>
     <string name="https_wizard_device_brand_generic">Vaše zařízení Android</string>
     <string name="https_wizard_install_instructions_title">Průvodce krok za krokem</string>
-    <string name="https_wizard_root_detected_title">Zjištěn přístup Root (doporučeno)</string>
-    <string name="https_wizard_root_detected_desc">Vaše zařízení má root přístup. Certifikát CA můžete nainstalovat automaticky bez ruční konfigurace.</string>
     <string name="https_wizard_checking_title">Ověřování certifikátu…</string>
     <string name="https_wizard_checking_desc">Skenování úložiště důvěryhodných certifikátů Android pro BlockAds CA…</string>
     <string name="https_wizard_installed_desc">BlockAds Root CA je ověřen a aktivní v úložišti důvěryhodných certifikátů. Pokročilé filtrování HTTPS je připraveno k použití!</string>
@@ -155,8 +152,6 @@
     <string name="https_wizard_next">Pokračovat</string>
     <string name="https_wizard_prev">Zpět</string>
     <string name="https_wizard_finish">Dokončit a povolit</string>
-    <string name="https_wizard_root_fast">Rychlá instalace</string>
-    <string name="https_wizard_root_module">Modul Magisk</string>
     <string name="https_wizard_copy_filename">Kopírovat název souboru</string>
     <string name="https_wizard_filename_copied">Název souboru certifikátu byl zkopírován do schránky</string>
     <string name="https_wizard_verified_success">Certifikát je ověřen a připraven k použití!</string>
@@ -202,4 +197,16 @@
     <string name="filter_edit_title">Upravit seznam filtrů</string>
     <string name="filter_edit_url_dialog_title">Upravit URL filtru</string>
     <string name="https_filtering_proxy_vpn_conflict">Nelze zapnout filtrování HTTPS, když je aktivní režim Proxy a VPN</string>
+    <string name="https_filtering_cert_required_desc">Pro aktivaci nainstalujte certifikát CA</string>
+    <string name="https_filtering_cert_not_installed_error">Před povolením filtrování HTTPS musí být nainstalován certifikát CA</string>
+    <string name="filter_tag_all">Vše</string>
+    <string name="filter_tag_create">Vytvořit štítek</string>
+    <string name="filter_tag_create_title">Vytvořit klasifikační štítek</string>
+    <string name="filter_tag_name_label">Název štítku</string>
+    <string name="filter_tag_name_placeholder">např. Reklamy, YouTube, Sociální sítě…</string>
+    <string name="filter_tag_section_title">Klasifikace / Štítek</string>
+    <string name="filter_tag_delete">Smazat štítek</string>
+    <string name="filter_tag_delete_confirm">Smazat štítek \"%1$s\"?</string>
+    <string name="filter_tag_empty">Zatím žádné filtry s tímto štítkem</string>
+    <string name="filter_tag_quick_presets">Návrhy</string>
 </resources>
