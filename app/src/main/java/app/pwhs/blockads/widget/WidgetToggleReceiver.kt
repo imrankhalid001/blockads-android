@@ -36,7 +36,7 @@ class WidgetToggleReceiver : BroadcastReceiver() {
                 } catch (e: Exception) {
                     Timber.e(e, "Error toggling VPN from widget receiver")
                 } finally {
-                    pendingResult.finish()
+                    pendingResult?.finish()
                 }
             }
         }

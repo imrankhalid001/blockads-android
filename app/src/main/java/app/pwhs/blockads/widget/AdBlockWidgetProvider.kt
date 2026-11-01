@@ -109,7 +109,7 @@ class AdBlockWidgetProvider : AppWidgetProvider() {
                     }
                 }
             } finally {
-                result.finish()
+                result?.finish()
             }
         }
     }

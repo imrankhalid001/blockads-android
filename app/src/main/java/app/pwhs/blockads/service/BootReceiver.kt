@@ -70,7 +70,7 @@ class BootReceiver : BroadcastReceiver() {
             } catch (e: Exception) {
                 Timber.e(e, "Error starting service after boot")
             } finally {
-                pendingResult.finish()
+                pendingResult?.finish()
             }
         }
     }
