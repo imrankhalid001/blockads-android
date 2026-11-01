@@ -17,8 +17,8 @@ android {
         applicationId = "app.pwhs.blockadstv"
         minSdk = 24
         targetSdk = 36
-        versionCode = 50
-        versionName = "6.5.1"
+        versionCode = 57
+        versionName = "7.1.0"
     }
 
     // Load signing config from key.properties (CI/CD)

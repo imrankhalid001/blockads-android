@@ -28,6 +28,21 @@ tasks.named("preBuild") {
     dependsOn(syncBrowserRules)
 }
 
+// Copy fdroid release APKs to build/outputs/apk/release/ with legacy un-flavored
+// filenames (app-*-release*.apk) so F-Droid AutoUpdateMode and GitHub Release
+// deploy.yml continue to work without requiring changes in fdroiddata.
+val copyFdroidReleaseApks = tasks.register<Copy>("copyFdroidReleaseApks") {
+    from(layout.buildDirectory.dir("outputs/apk/fdroid/release")) {
+        include("*.apk")
+        rename { it.replace("app-fdroid-", "app-") }
+    }
+    into(layout.buildDirectory.dir("outputs/apk/release"))
+}
+
+tasks.matching { it.name == "assembleFdroidRelease" || it.name == "packageFdroidRelease" }.configureEach {
+    finalizedBy(copyFdroidReleaseApks)
+}
+
 when (tunnelSource) {
     "local" -> tasks.named("preBuild") { dependsOn(":buildGoTunnel") }
     // "prebuilt" means the caller already produced the aar, so there is nothing
@@ -49,8 +64,8 @@ android {
         applicationId = "app.pwhs.blockads"
         minSdk = 24
         targetSdk = 36
-        versionCode = 56
-        versionName = "7.0.0"
+        versionCode = 57
+        versionName = "7.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

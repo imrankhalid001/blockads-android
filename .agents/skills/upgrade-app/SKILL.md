@@ -14,12 +14,12 @@ This skill automates the end-to-end process of releasing a new version of the ap
 - Check `gh auth status` to ensure GitHub CLI is authenticated.
 
 ### 2. Research & Versioning
-- Read `app/build.gradle.kts` to find the current `versionCode` and `versionName`.
+- Read `app/build.gradle.kts` and `blockadstv/build.gradle.kts` to find the current `versionCode` and `versionName`.
 - Suggest a new `versionName` (e.g., if current is `1.7.1`, suggest `1.7.2`).
-- Increment `versionCode` by 1.
+- Increment `versionCode` by 1 across both modules.
 
 ### 3. Update Files
-- Update `app/build.gradle.kts` with the new version info.
+- Update `app/build.gradle.kts` and `blockadstv/build.gradle.kts` with the new version info.
 - Fetch commits since the last tag:
   ```bash
   LAST_TAG=$(git describe --tags --abbrev=0)
@@ -41,7 +41,7 @@ This skill automates the end-to-end process of releasing a new version of the ap
 ### 6. Git & GitHub Operations (MUST BE SEQUENTIAL)
 - To avoid race conditions and tagging the wrong commit, execute the commit and tagging sequentially in a single command block:
   ```bash
-  git add app/build.gradle.kts fastlane/metadata/android/en-US/changelogs/<new-versionCode>.txt && \
+  git add app/build.gradle.kts blockadstv/build.gradle.kts fastlane/metadata/android/en-US/changelogs/<new-versionCode>.txt && \
   git commit -m "chore: bump version to <versionName> (<versionCode>)" && \
   git tag v<versionName> && \
   git push origin main && \
