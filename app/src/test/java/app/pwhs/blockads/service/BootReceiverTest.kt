@@ -31,17 +31,16 @@ class BootReceiverTest {
         }
 
     private fun deliver(action: String): Intent? {
+        shadowOf(app).clearStartedServices()
         val receiver = BootReceiver()
-        app.registerReceiver(receiver, android.content.IntentFilter(action), Context.RECEIVER_NOT_EXPORTED)
-        app.sendBroadcast(Intent(action).setPackage(app.packageName))
-        shadowOf(android.os.Looper.getMainLooper()).idle()
+        receiver.onReceive(app, Intent(action).setPackage(app.packageName))
         val deadline = System.currentTimeMillis() + 1_000
         var started: Intent? = null
         while (System.currentTimeMillis() < deadline && started == null) {
+            shadowOf(android.os.Looper.getMainLooper()).idle()
             started = shadowOf(app).nextStartedService
             if (started == null) Thread.sleep(20)
         }
-        app.unregisterReceiver(receiver)
         return started
     }
 

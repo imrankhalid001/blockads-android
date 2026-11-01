@@ -228,8 +228,8 @@ func TestStartFullQUIC(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			e, _ := newNetEngine(t)
 			e.SetFilterHttp3(tt.filterH3)
+			e.StartStackMitm(t.TempDir())
 			if tt.mitmUIDs != "" {
-				e.StartStackMitm(t.TempDir())
 				e.SetMitmAllowedUIDs(tt.mitmUIDs)
 				e.SetUIDResolver(&countingUIDResolver{uid: tt.uid})
 			}
