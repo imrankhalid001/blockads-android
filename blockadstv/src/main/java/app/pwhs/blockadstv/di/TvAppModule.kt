@@ -31,6 +31,10 @@ val tvAppModule = module {
     single { get<TvDatabase>().filterListDao() }
     single { get<TvDatabase>().whitelistDomainDao() }
     single { get<TvDatabase>().customDnsRuleDao() }
+    single { get<TvDatabase>().firewallRuleDao() }
+
+    // Firewall
+    single { app.pwhs.blockadstv.service.TvFirewallManager(get()) }
 
     // Preferences
     single { TvPreferences(androidContext()) }

@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -74,6 +75,7 @@ class TvVpnService : VpnService() {
     private lateinit var filterRepo: FilterListRepository
     private lateinit var tvPrefs: TvPreferences
     private lateinit var dnsLogDao: DnsLogDao
+    private lateinit var firewallManager: TvFirewallManager
     private lateinit var goTunnelAdapter: GoTunnelAdapter
     private lateinit var appNameResolver: AppNameResolver
 
@@ -83,6 +85,7 @@ class TvVpnService : VpnService() {
         filterRepo = koin.get()
         tvPrefs = koin.get()
         dnsLogDao = koin.get()
+        firewallManager = koin.get()
 
         appNameResolver = AppNameResolver(this)
         goTunnelAdapter = GoTunnelAdapter(
@@ -91,6 +94,7 @@ class TvVpnService : VpnService() {
             dnsLogDao = dnsLogDao,
             scope = serviceScope,
             appNameResolver = appNameResolver,
+            firewallManager = firewallManager,
         )
     }
 
@@ -137,12 +141,14 @@ class TvVpnService : VpnService() {
                 Timber.d("Ad bloom paths: '${filterRepo.getAdBloomPath()}'")
                 Timber.d("Security bloom paths: '${filterRepo.getSecurityBloomPath()}'")
 
-                // Phase 2: Read preferences
+                // Phase 2: Read preferences & firewall rules
                 Timber.d("Phase 2: Reading preferences...")
+                firewallManager.loadRules()
                 val upstreamDns = tvPrefs.upstreamDns.first()
                 val fallbackDns = tvPrefs.fallbackDns.first()
                 val dnsProtocol = tvPrefs.dnsProtocol.first()
                 val dohUrl = tvPrefs.dohUrl.first()
+                val odohRelayUrl = tvPrefs.odohRelayUrl.first()
                 val dnsResponseType = tvPrefs.dnsResponseType.first()
                 val whitelistedApps = tvPrefs.getWhitelistedAppsSnapshot()
                 Timber.d("DNS: protocol=$dnsProtocol, primary=$upstreamDns, fallback=$fallbackDns")
@@ -175,6 +181,7 @@ class TvVpnService : VpnService() {
                     primary = upstreamDns,
                     fallback = fallbackDns,
                     dohUrl = dohUrl,
+                    odohRelayUrl = odohRelayUrl,
                 )
                 goTunnelAdapter.setBlockResponseType(dnsResponseType)
                 Timber.d("Go engine configured, starting tunnel...")
@@ -186,6 +193,36 @@ class TvVpnService : VpnService() {
                         Timber.d("Filter count changed to $count, hot-reloading tries...")
                         goTunnelAdapter.updateTries()
                         Timber.d("Tries reloaded: ad='${filterRepo.getAdTriePath()}', sec='${filterRepo.getSecurityTriePath()}'")
+                    }
+                }
+
+                // Dynamically update DNS config whenever DNS settings change
+                launch {
+                    combine(
+                        tvPrefs.dnsProtocol,
+                        tvPrefs.upstreamDns,
+                        tvPrefs.fallbackDns,
+                        tvPrefs.dohUrl,
+                        tvPrefs.odohRelayUrl,
+                    ) { protocol, primary, fallback, doh, relay ->
+                        listOf(protocol.name, primary, fallback, doh, relay)
+                    }.drop(1).collectLatest { config ->
+                        Timber.d("DNS config changed, hot-updating Go tunnel DNS: $config")
+                        goTunnelAdapter.configureDns(
+                            protocol = config[0],
+                            primary = config[1],
+                            fallback = config[2],
+                            dohUrl = config[3],
+                            odohRelayUrl = config[4],
+                        )
+                    }
+                }
+
+                // Dynamically update DNS response type
+                launch {
+                    tvPrefs.dnsResponseType.drop(1).collectLatest { responseType ->
+                        Timber.d("DNS response type changed to $responseType")
+                        goTunnelAdapter.setBlockResponseType(responseType)
                     }
                 }
 

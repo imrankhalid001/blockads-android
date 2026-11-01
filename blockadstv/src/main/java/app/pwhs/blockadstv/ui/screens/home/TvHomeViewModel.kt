@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pwhs.blockadstv.data.dao.DnsLogDao
 import app.pwhs.blockadstv.data.datastore.TvPreferences
+import app.pwhs.blockadstv.data.entities.TopBlockedDomain
 import app.pwhs.blockadstv.data.repository.FilterListRepository
 import app.pwhs.blockadstv.service.TvVpnService
 import app.pwhs.blockadstv.service.VpnState
@@ -51,6 +52,9 @@ class TvHomeViewModel(
 
     val filterRuleCount: StateFlow<Int> = filterRepo.domainCountFlow
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+
+    val topBlockedDomains: StateFlow<List<TopBlockedDomain>> = dnsLogDao.getTopBlockedDomains(5)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val protectionUptimeMs: StateFlow<Long> = flow {
         while (true) {

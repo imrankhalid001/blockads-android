@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
 }
-
-import java.util.Properties
 
 android {
     namespace = "app.pwhs.blockadstv"
@@ -114,6 +114,7 @@ dependencies {
 
     // TV Material
     implementation(libs.androidx.tv.material)
+    implementation(libs.accompanist.drawablepainter)
 
     // Lifecycle
     implementation(libs.androidx.lifecycle.runtime.ktx)

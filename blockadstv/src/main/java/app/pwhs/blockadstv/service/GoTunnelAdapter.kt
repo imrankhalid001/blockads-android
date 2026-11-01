@@ -21,14 +21,24 @@ class GoTunnelAdapter(
     private val dnsLogDao: DnsLogDao,
     private val scope: CoroutineScope,
     private val appNameResolver: AppNameResolver,
+    private val firewallManager: TvFirewallManager,
 ) {
     private val engine = tunnel.Tunnel.newEngine()
 
     @Volatile
     private var isRunning = false
 
-    fun configureDns(protocol: String, primary: String, fallback: String, dohUrl: String) {
+    fun configureDns(
+        protocol: String,
+        primary: String,
+        fallback: String,
+        dohUrl: String,
+        odohRelayUrl: String = "",
+    ) {
         engine.setDNS(protocol, primary, fallback, dohUrl)
+        if (protocol.equals("ODOH", ignoreCase = true) || odohRelayUrl.isNotBlank()) {
+            engine.setODoHRelay(odohRelayUrl)
+        }
     }
 
     fun setBlockResponseType(responseType: String) {
@@ -58,7 +68,15 @@ class GoTunnelAdapter(
     }
 
     private fun setupFirewallChecker() {
-        engine.setFirewallChecker(FirewallChecker { false })
+        engine.setFirewallChecker(FirewallChecker { appName ->
+            try {
+                if (appName.isEmpty()) return@FirewallChecker false
+                firewallManager.shouldBlock(appName)
+            } catch (e: Exception) {
+                Timber.e(e, "Firewall check failed for $appName")
+                false
+            }
+        })
     }
 
     private fun setupLogCallback() {
