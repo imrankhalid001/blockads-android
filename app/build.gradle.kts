@@ -3,7 +3,6 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
@@ -37,10 +36,12 @@ when (tunnelSource) {
     else -> tasks.named("preBuild") { dependsOn(":verifyTunnelAar") }
 }
 
+val isBuildingBundle = gradle.startParameter.taskNames.any { it.contains("bundle", ignoreCase = true) }
+
 android {
     namespace = "app.pwhs.blockads"
     compileSdk {
-        version = release(36)
+        version = release(37)
     }
     ndkVersion = "26.1.10909125"
 
@@ -110,7 +111,7 @@ android {
 
     sourceSets {
         // MigrationTestHelper reads exported schemas as assets.
-        getByName("androidTest").assets.srcDir("$projectDir/schemas")
+        getByName("androidTest").assets.directories += "$projectDir/schemas"
     }
 
     testOptions {
@@ -157,7 +158,6 @@ android {
         includeInBundle = false
     }
 
-    val isBuildingBundle = gradle.startParameter.taskNames.any { it.contains("bundle", ignoreCase = true) }
     splits {
         abi {
             isEnable = !isBuildingBundle

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.13.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.13.2)" variant="all" version="8.13.2">
+<issues format="6" by="lint 9.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (9.2.1)" variant="all" version="9.2.1">
 
     <issue
         id="NewApi"
@@ -184,7 +184,7 @@
         errorLine2="        ~~~~~~~~~~~~~~">
         <location
             file="build.gradle.kts"
-            line="50"
+            line="49"
             column="9"/>
     </issue>
 
@@ -355,9 +355,9 @@
 
     <issue
         id="AndroidGradlePluginVersion"
-        message="A newer version of Gradle than 8.14.3 is available: 8.14.6"
-        errorLine1="distributionUrl=https\://services.gradle.org/distributions/gradle-8.14.3-bin.zip"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        message="A newer version of Gradle than 9.4.1 is available: 9.8.2"
+        errorLine1="distributionUrl=https\://services.gradle.org/distributions/gradle-9.4.1-bin.zip"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="$HOME/AndroidStudioProjects/blockads-android/gradle/wrapper/gradle-wrapper.properties"
             line="4"
@@ -366,24 +366,13 @@
 
     <issue
         id="AndroidGradlePluginVersion"
-        message="A newer version of com.android.application than 8.13.2 is available: 9.5.0"
-        errorLine1="agp = &quot;8.13.2&quot;"
-        errorLine2="      ~~~~~~~~">
+        message="A newer version of com.android.application than 9.2.1 is available: 9.5.0"
+        errorLine1="agp = &quot;9.2.1&quot;"
+        errorLine2="      ~~~~~~~">
         <location
             file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
             line="2"
             column="7"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.core:core-ktx than 1.18.0 is available: 1.19.1"
-        errorLine1="coreKtx = &quot;1.18.0&quot;"
-        errorLine2="          ~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="6"
-            column="11"/>
     </issue>
 
     <issue
@@ -410,94 +399,6 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of androidx.compose:compose-bom than 2026.05.00 is available: 2026.09.00"
-        errorLine1="composeBom = &quot;2026.05.00&quot;"
-        errorLine2="             ~~~~~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="12"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.room:room-compiler than 2.8.4 is available: 2.8.5"
-        errorLine1="room = &quot;2.8.4&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="13"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.room:room-ktx than 2.8.4 is available: 2.8.5"
-        errorLine1="room = &quot;2.8.4&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="13"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.room:room-runtime than 2.8.4 is available: 2.8.5"
-        errorLine1="room = &quot;2.8.4&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="13"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.room:room-testing than 2.8.4 is available: 2.8.5"
-        errorLine1="room = &quot;2.8.4&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="13"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.datastore:datastore-preferences than 1.2.1 is available: 1.3.0"
-        errorLine1="datastorePreferences = &quot;1.2.1&quot;"
-        errorLine2="                       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="14"
-            column="24"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.work:work-runtime-ktx than 2.11.2 is available: 2.12.0"
-        errorLine1="workManager = &quot;2.11.2&quot;"
-        errorLine2="              ~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="28"
-            column="15"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.work:work-testing than 2.11.2 is available: 2.12.0"
-        errorLine1="workManager = &quot;2.11.2&quot;"
-        errorLine2="              ~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="28"
-            column="15"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
         message="A newer version of androidx.lifecycle:lifecycle-runtime-compose than 2.10.0 is available: 2.11.0"
         errorLine1="lifecycleRuntimeCompose = &quot;2.10.0&quot;"
         errorLine2="                          ~~~~~~~~">
@@ -505,72 +406,6 @@
             file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
             line="30"
             column="27"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.navigation3:navigation3-runtime than 1.1.1 is available: 1.2.0"
-        errorLine1="nav3Core = &quot;1.1.1&quot;"
-        errorLine2="           ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="31"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.navigation3:navigation3-ui than 1.1.1 is available: 1.2.0"
-        errorLine1="nav3Core = &quot;1.1.1&quot;"
-        errorLine2="           ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="31"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.appcompat:appcompat than 1.7.1 is available: 1.8.0"
-        errorLine1="appcompat = &quot;1.7.1&quot;"
-        errorLine2="            ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="34"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.tv:tv-foundation than 1.0.0-alpha07 is available: 1.0.0"
-        errorLine1="tvFoundation = &quot;1.0.0-alpha07&quot;"
-        errorLine2="               ~~~~~~~~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="35"
-            column="16"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of androidx.tv:tv-material than 1.0.0-alpha07 is available: 1.1.0"
-        errorLine1="tvMaterial = &quot;1.0.0-alpha07&quot;"
-        errorLine2="             ~~~~~~~~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="36"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlin.android than 2.3.10 is available: 2.4.21"
-        errorLine1="kotlin = &quot;2.3.10&quot;"
-        errorLine2="         ~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="4"
-            column="10"/>
     </issue>
 
     <issue
@@ -593,149 +428,6 @@
             file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
             line="4"
             column="10"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-cio than 3.4.3 is available: 3.6.1"
-        errorLine1="ktor = &quot;3.4.3&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="15"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-core than 3.4.3 is available: 3.6.1"
-        errorLine1="ktor = &quot;3.4.3&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="15"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-logging than 3.4.3 is available: 3.6.1"
-        errorLine1="ktor = &quot;3.4.3&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="15"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-mock than 3.4.3 is available: 3.6.1"
-        errorLine1="ktor = &quot;3.4.3&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="15"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.ktor:ktor-client-websockets than 3.4.3 is available: 3.6.1"
-        errorLine1="ktor = &quot;3.4.3&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="15"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.insert-koin:koin-bom than 4.2.1 is available: 4.2.2"
-        errorLine1="koin = &quot;4.2.1&quot;"
-        errorLine2="       ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="17"
-            column="8"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlinx:kotlinx-serialization-json than 1.11.0 is available: 1.12.0"
-        errorLine1="kotlinxSerialization = &quot;1.11.0&quot;"
-        errorLine2="                       ~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="19"
-            column="24"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.squareup.okhttp3:mockwebserver than 4.12.0 is available: 5.5.1"
-        errorLine1="okhttp = &quot;4.12.0&quot;"
-        errorLine2="         ~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="25"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.squareup.okhttp3:okhttp-tls than 4.12.0 is available: 5.5.1"
-        errorLine1="okhttp = &quot;4.12.0&quot;"
-        errorLine2="         ~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="25"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of org.jetbrains.kotlinx.kover than 0.9.9 is available: 0.9.11"
-        errorLine1="kover = &quot;0.9.9&quot;"
-        errorLine2="        ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="26"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.github.ehsannarmani:compose-charts than 0.2.5 is available: 1.0.0"
-        errorLine1="composeCharts = &quot;0.2.5&quot;"
-        errorLine2="                ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="29"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.sentry.android.gradle than 6.6.0 is available: 6.25.0"
-        errorLine1="sentry = &quot;6.6.0&quot;"
-        errorLine2="         ~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="32"
-            column="10"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of io.sentry:sentry-android than 8.41.0 is available: 8.62.0"
-        errorLine1="sentry-android = &quot;8.41.0&quot;"
-        errorLine2="                 ~~~~~~~~">
-        <location
-            file="$HOME/AndroidStudioProjects/blockads-android/gradle/libs.versions.toml"
-            line="33"
-            column="18"/>
     </issue>
 
     <issue
